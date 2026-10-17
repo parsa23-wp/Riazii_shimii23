@@ -280,6 +280,9 @@ nav{overflow-x:auto}nav button{white-space:nowrap}textarea{min-height:0}.how{mar
 const PY = String.raw`import json, numpy as np
 from sympy import symbols, exp, log, diff, simplify, integrate, solve, latex, E
 from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application, convert_xor
+_raw_parse = parse_expr
+_NT = str.maketrans({'×':'*','·':'*','⋅':'*','∙':'*','÷':'/','−':'-','–':'-','٫':'.','،':',','٬':'', **{c:str(i) for i,c in enumerate('۰۱۲۳۴۵۶۷۸۹')}, **{c:str(i) for i,c in enumerate('٠١٢٣٤٥٦٧٨٩')}})
+def parse_expr(s, *a, **k): return _raw_parse(s.translate(_NT) if isinstance(s, str) else s, *a, **k)
 from scipy.optimize import curve_fit
 from scipy.stats import t as tdist
 
@@ -359,6 +362,9 @@ def cas(op, s):
 import json, numpy as np
 from sympy import symbols, diff, latex, simplify, lambdify, Matrix, sqrt, acos, N, pi
 from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application, convert_xor
+_raw_parse = parse_expr
+_NT = str.maketrans({'×':'*','·':'*','⋅':'*','∙':'*','÷':'/','−':'-','–':'-','٫':'.','،':',','٬':'', **{c:str(i) for i,c in enumerate('۰۱۲۳۴۵۶۷۸۹')}, **{c:str(i) for i,c in enumerate('٠١٢٣٤٥٦٧٨٩')}})
+def parse_expr(s, *a, **k): return _raw_parse(s.translate(_NT) if isinstance(s, str) else s, *a, **k)
 from scipy.integrate import solve_ivp
 
 x, y = symbols('x y', real=True)
@@ -996,20 +1002,22 @@ setInterval(()=>{if(py)Object.values(bx).forEach(b=>{if(b.el.value!==b.last&&b.e
 INIT.push(p=>{py=p});})();
 (async()=>{const S=document.getElementById('status');
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let step='';
 async function boot(){
  S.textContent='در حال بارگذاری موتور پایتون… (۱/۴)';
+ step='pyodide';
  const py=await loadPyodide();
  // بارگذاری پشت‌سرهم (نه موازی) تا مصرف حافظه‌ی لحظه‌ای روی گوشی کمتر شود
- S.textContent='در حال بارگذاری numpy… (۲/۴)'; await py.loadPackage('numpy'); await sleep(50);
- S.textContent='در حال بارگذاری sympy… (۳/۴)'; await py.loadPackage('sympy'); await sleep(50);
- S.textContent='در حال بارگذاری scipy… (۴/۴)'; await py.loadPackage('scipy'); await sleep(50);
- py.runPython(PY);
+ S.textContent='در حال بارگذاری numpy… (۲/۴)'; step='numpy'; await py.loadPackage('numpy'); await sleep(50);
+ S.textContent='در حال بارگذاری sympy… (۳/۴)'; step='sympy'; await py.loadPackage('sympy'); await sleep(50);
+ S.textContent='در حال بارگذاری scipy… (۴/۴)'; step='scipy'; await py.loadPackage('scipy'); await sleep(50);
+ step='runPython'; py.runPython(PY);
  return py;
 }
 let py,err;
 for(let i=0;i<2&&!py;i++){try{py=await boot()}catch(e){err=e;S.textContent='تلاش دوباره…';await sleep(800)}}
 if(py){INIT.forEach(f=>f(py));window.PYO=py;S.textContent='موتور پایتون آماده است ✓';S.className='ready';const on=document.querySelector('nav button.on').dataset.t;HK[on]&&HK[on]();}
-else{S.innerHTML='بارگذاری ناموفق بود (احتمالاً کمبود حافظه‌ی گوشی). تب‌های دیگر را ببندید و صفحه را دوباره باز کنید. ('+String(err&&err.message||err).slice(0,200)+') <button onclick="location.reload()" style="margin-top:8px">تلاش دوباره</button>'}
+else{S.innerHTML='بارگذاری ناموفق بود (احتمالاً کمبود حافظه‌ی گوشی). تب‌های دیگر را ببندید و صفحه را دوباره باز کنید. [مرحله: '+step+'] ('+String(err&&err.message||err).slice(0,200)+') <button onclick="location.reload()" style="margin-top:8px">تلاش دوباره</button>'}
 })();
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button,section').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');window.PYO&&HK[b.dataset.t]&&HK[b.dataset.t]();});
 </script></body></html>
