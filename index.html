@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>آزمایشگاه ریاضی شیمی — نسخه یکپارچه ۰٫۳</title>
+<title>آزمایشگاه ریاضی شیمی — نسخه ۰٫۶</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <style>
@@ -90,7 +90,7 @@ nav{overflow-x:auto}nav button{white-space:nowrap}textarea{min-height:0}.how{mar
 .help table{margin:6px 0;font-size:14px}.help td{direction:ltr;text-align:left}.help td:first-child{direction:rtl;text-align:right;color:var(--mut)}
 </style></head><body>
 <header><h1>آزمایشگاه ریاضی شیمی</h1><p>سینتیک، حساب برداری، الکتریسته و مغناطیس، همه در مرورگر شما</p></header>
-<div id="status">در حال بارگذاری موتور پایتون (بار اول چند ده مگابایت دانلود می‌شود)…</div>
+<div id="status">نسخه ۰٫۶ · در حال شروع… (اگر این پیام عوض نشد، اسکریپت اجرا نشده یا صفحه‌ی قدیمی در حافظه‌ی مرورگر است)</div>
 <nav><button class="on" data-t="kin">سینتیک واکنش</button><button data-t="sc">میدان اسکالر</button><button data-t="s3">گرادیان سه‌بعدی</button><button data-t="ch">مشتق زنجیره‌ای</button><button data-t="vf">میدان برداری</button><button data-t="v3">میدان برداری سه‌بعدی</button><button data-t="el">الکتریسته</button><button data-t="mg">مغناطیس صفحه‌ای</button><button data-t="m3">مغناطیس سه‌بعدی</button><button data-t="la">بردار و ماتریس</button><button data-t="lp">لاپلاسین و گرما</button><button data-t="ln">انتگرال خطی</button><button data-t="mi">انتگرال سطحی و حجمی</button><button data-t="cas">ماشین‌حساب</button></nav><main><section id="kin" class="on"><details class="how" open><summary>توضیح این بخش</summary><p>در این بخش می‌بینید غلظت یک ماده با گذشت زمان چطور کم می‌شود. «مرتبه‌ی واکنش» تعیین می‌کند سرعت واکنش چقدر به غلظت وابسته است. با اسلایدر ثابت سرعت k را عوض کنید و تغییر منحنی را ببینید. اگر داده‌ی آزمایشگاهی دارید، برنامه k را با بازه‌ی اطمینان برازش می‌کند و بهترین مرتبه را پیشنهاد می‌دهد.</p></details>
   <div class="grid">
     <div>
@@ -316,6 +316,8 @@ nav{overflow-x:auto}nav button{white-space:nowrap}textarea{min-height:0}.how{mar
 <div><button class="act" data-c="diff">مشتق  d/dx</button><button class="act" data-c="int">انتگرال  ∫</button><button class="act" data-c="solve">حل معادله</button><button class="act" data-c="simp">ساده‌سازی</button><button class="act alt" id="c_bs">⌫ پاک‌کردن یک نویسه</button><button class="act alt" id="c_cl">C پاک‌کردن همه</button></div>
 <div id="c_out"></div></section></main>
 <script>window.HK={};window.INIT=[];
+window.addEventListener('error',e=>{if(window.__ready)return;const S=document.getElementById('status');if(S){S.className='';S.textContent='خطای اسکریپت: '+(e.message||'نامشخص')+' (خط '+(e.lineno||'?')+')'}});
+window.addEventListener('unhandledrejection',e=>{if(window.__ready)return;const S=document.getElementById('status');if(S){S.className='';S.textContent='خطای بارگذاری: '+String(e.reason&&e.reason.message||e.reason||'نامشخص').slice(0,200)}});
 const PYC = {
 core: String.raw`import json, numpy as np
 from sympy import symbols, exp, log, diff, simplify, integrate, solve, latex, E, lambdify, Matrix, sqrt, acos, N, pi, Add, Poly, factor
@@ -362,8 +364,90 @@ def prev(s):
         return json.dumps({"ok": False})
 
 
+from types import SimpleNamespace
+
+def solve_ivp(fun, tspan, y0, t_eval=None, rtol=None, atol=None, sub=10):
+    ts = np.asarray(t_eval, float); y = np.array(y0, float); out = np.full((len(y), len(ts)), np.nan)
+    f = lambda t, s: np.asarray(fun(t, s), float)
+    out[:, 0] = y
+    for i in range(1, len(ts)):
+        h = (ts[i] - ts[i-1])/sub; t0 = ts[i-1]
+        for _ in range(sub):
+            k1 = f(t0, y); k2 = f(t0 + h/2, y + h/2*k1); k3 = f(t0 + h/2, y + h/2*k2); k4 = f(t0 + h, y + h*k3)
+            y = y + h/6*(k1 + 2*k2 + 2*k3 + k4); t0 += h
+        if not np.all(np.isfinite(y)): break
+        out[:, i] = y
+    return SimpleNamespace(y=out)
+
+TQ = [12.706,4.303,3.182,2.776,2.571,2.447,2.365,2.306,2.262,2.228,2.201,2.179,2.160,2.145,2.131,2.120,2.110,2.101,2.093,2.086,2.080,2.074,2.069,2.064,2.060,2.056,2.052,2.048,2.045,2.042]
+def tcrit(df): return TQ[int(df)-1] if df <= 30 else 1.96 + 2.4/df
+
+def curve_fit(fn, x, y, p0, bounds=None):
+    p = np.array(p0, float); lam = 1e-3
+    res = lambda q: y - fn(x, *q)
+    def jac(q):
+        J = np.empty((len(x), len(q))); b = fn(x, *q)
+        for j in range(len(q)):
+            hh = 1e-6*max(abs(q[j]), 1e-3); w = q.copy(); w[j] += hh; J[:, j] = (fn(x, *w) - b)/hh
+        return J
+    r = res(p); sse = float(r@r)
+    for _ in range(300):
+        J = jac(p); A = J.T@J; g = J.T@r; moved = False
+        for _ in range(40):
+            try: dp = np.linalg.solve(A + lam*np.diag(np.diag(A) + 1e-12), g)
+            except np.linalg.LinAlgError: lam *= 10; continue
+            pn = np.maximum(p + dp, 0); rn = res(pn); sn = float(rn@rn)
+            if np.isfinite(sn) and sn <= sse:
+                moved = sse - sn > 1e-14*max(sse, 1e-300); p, r, sse = pn, rn, sn; lam = max(lam/3, 1e-12); break
+            lam *= 5
+        if not moved: break
+    J = jac(p); cov = np.linalg.inv(J.T@J)*sse/max(len(x) - len(p), 1)
+    return p, cov
+
+def _nodes(lo, hi, n, panels):
+    xs, ws = np.polynomial.legendre.leggauss(n); pts = []; wts = []
+    e = np.linspace(lo, hi, panels + 1)
+    for a_, b_ in zip(e[:-1], e[1:]):
+        m = (a_ + b_)/2; hh = (b_ - a_)/2; pts += list(m + hh*xs); wts += list(hh*ws)
+    return pts, wts
+
+def quad(f, a, b, limit=50):
+    def rule(n, p):
+        xs, ws = _nodes(a, b, n, p); return float(sum(w*f(x_) for x_, w in zip(xs, ws)))
+    v = rule(8, 24); return v, abs(v - rule(8, 12))
+
+def dblquad(f, a, b, gfun, hfun):
+    def rule(n, p):
+        xs, wx = _nodes(a, b, n, p); tot = 0.0
+        for x_, w_ in zip(xs, wx):
+            ys, wy = _nodes(gfun(x_), hfun(x_), n, p); tot += w_*float(sum(wv*f(y_, x_) for y_, wv in zip(ys, wy)))
+        return tot
+    v = rule(8, 3); return v, abs(v - rule(6, 2))
+
+def tplquad(f, a, b, gfun, hfun, qfun, rfun):
+    def rule(n, p):
+        xs, wx = _nodes(a, b, n, p); tot = 0.0
+        for x_, w_ in zip(xs, wx):
+            ys, wy = _nodes(gfun(x_), hfun(x_), n, p)
+            for y_, v_ in zip(ys, wy):
+                zs, wz = _nodes(qfun(x_, y_), rfun(x_, y_), n, p); tot += w_*v_*float(sum(u*f(z_, y_, x_) for z_, u in zip(zs, wz)))
+        return tot
+    v = rule(8, 2); return v, abs(v - rule(6, 1))
+
+
+_LITE = dict(solve_ivp=solve_ivp, curve_fit=curve_fit, quad=quad, dblquad=dblquad, tplquad=tplquad, tcrit=tcrit)
+def use_scipy(on):
+    g = globals()
+    if on:
+        from scipy.integrate import solve_ivp as a, quad as b, dblquad as c, tplquad as d
+        from scipy.optimize import curve_fit as e
+        from scipy.stats import t as tdist
+        g.update(solve_ivp=a, quad=b, dblquad=c, tplquad=d, curve_fit=e, tcrit=lambda df: float(tdist.ppf(0.975, df)))
+    else:
+        g.update(_LITE)
+    return True
+
 def _sci():
-    from scipy.integrate import solve_ivp
     return solve_ivp`,
 kin: String.raw`RHS = {0: lambda c: -k, 1: lambda c: -k*c, 2: lambda c: -k*c**2}
 SOL = {0: C0-k*t, 1: C0*exp(-k*t), 2: C0/(1+C0*k*t)}
@@ -399,8 +483,6 @@ def curve(n, kv, c0, tmax):
     return json.dumps({"t": tt.tolist(), "c": cc.tolist(), "half": num(th)})
 
 def fit(js):
-    from scipy.optimize import curve_fit
-    from scipy.stats import t as tdist
     d = json.loads(js)
     x = np.array(d["t"], float); y = np.array(d["c"], float)
     N = len(x); out = {}
@@ -415,7 +497,7 @@ def fit(js):
             res = y - F[n](x, *p)
             sse = float(np.sum(res**2)); sst = float(np.sum((y-y.mean())**2))
             se = np.sqrt(np.diag(cov))
-            tq = tdist.ppf(0.975, N-2) if N > 2 else np.nan
+            tq = tcrit(N-2) if N > 2 else np.nan
             out[n] = {"k": num(p[0]), "c0": num(p[1]), "se_k": num(se[0]), "se_c0": num(se[1]),
                       "ci_k": num(tq*se[0]), "ci_c0": num(tq*se[1]),
                       "r2": num(1-sse/sst) if sst > 0 else None, "rmse": num(np.sqrt(sse/N)),
@@ -669,7 +751,6 @@ def heat(js):
 mul: String.raw`def multi(js):
     try:
         from sympy import Integral, sqrt, integrate, diff, latex, lambdify
-        from scipy.integrate import dblquad, tplquad
         d = json.loads(js); kind = d['kind']
         loc = {'x': x, 'y': y, 'z': z}
         Pm = lambda s: parse_expr(s, local_dict=loc, transformations=TR)
@@ -726,7 +807,6 @@ mul: String.raw`def multi(js):
 def lineint(js):
     try:
         from sympy import sqrt, integrate, diff, latex, lambdify, simplify, Integral, Matrix
-        from scipy.integrate import quad
         d = json.loads(js); k = d['kind']
         loc = {'x': x, 'y': y, 'z': z, 't': T_}
         Pm = lambda s: parse_expr(s, local_dict=loc, transformations=TR)
@@ -1186,43 +1266,4 @@ const bad=(b,m)=>{b.innerHTML='<p class="err"></p>';b.firstChild.textContent='و
 const cfg={displayModeBar:false,responsive:true};
 const num=id=>+norm($(id).value);
 const p5=v=>Number(v).toPrecision(5);
-const lay=()=>({margin:{t:10,r:10,b:40,l:50},paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{family:'Vazirmatn, Tahoma',color:css('--ink')},showlegend:false,xaxis:{title:'x',gridcolor:css('--line')},yaxis:{title:'T',gridcolor:css('--line')}});
-
-function lpMode(){const c=$('lp_mode').value=='cross';$('lp_line').style.display=c?'none':'';$('lp_cross').style.display=c?'':'none';}
-$('lp_mode').onchange=()=>{lpMode();runLp()};
-function runLp(){const o=$('lp_out');o.innerHTML='';
- const mode=$('lp_mode').value,al=num('lp_al');const d={mode,alpha:al};
- if(mode=='line'){d.x=[1,2,3,4].map(i=>num('lp_x'+i));d.T=[1,2,3,4].map(i=>num('lp_T'+i));}
- else{d.T=['Tc','TE','TW','TN','TS'].map(k=>num('lp_'+k));d.hx=num('lp_hx');d.hy=num('lp_hy');}
- if(!Number.isFinite(al)||[...(d.x||[]),...d.T].some(v=>!Number.isFinite(v))||(mode=='cross'&&!(Number.isFinite(d.hx)&&Number.isFinite(d.hy))))return bad(o,'یکی از کادرها عدد نیست');
- const r=call('heat',d);if(!r.ok)return bad(o,r.msg);
- const L=lay();
- if(r.mode=='line'){
-  Plotly.react('lp_plot',[{x:r.xs,y:r.ys,mode:'lines',line:{color:css('--acc'),width:3,dash:'dot'}},
-   {x:r.x,y:r.T,mode:'markers+text',text:['t₁','t₂','t₃','t₄'],textposition:'top center',marker:{size:[9,9,13,9],color:[css('--acc'),css('--acc'),css('--acc2'),css('--acc')]}}],L,cfg);
-  row(o,'لاپلاسین در t₃ (از t₂ و t₃ و t₄)','\\nabla^2T\\approx\\frac{d^2T}{dx^2}='+p5(r.lap));
-  row(o,'بررسی با چندجمله‌ای درجه سه از هر چهار نقطه','\\frac{d^2T}{dx^2}='+p5(r.lap4)+'\\quad \\frac{dT}{dx}='+p5(r.grad));
-  row(o,'معادله‌ی گرما','\\frac{\\partial T}{\\partial t}=\\alpha\\nabla^2T='+p5(r.rate));
-  say(o,(r.lap>0?'لاپلاسین مثبت است: t₃ از میانگین همسایه‌هایش سردتر است و گرم می‌شود. ':r.lap<0?'لاپلاسین منفی است: t₃ از میانگین همسایه‌هایش داغ‌تر است و سرد می‌شود. ':'لاپلاسین صفر است: دما در t₃ فعلاً تغییری نمی‌کند. ')+'اگر مکان‌ها بر حسب سانتی‌متر و α بر حسب cm²/s باشد، آهنگ تغییر بر حسب درجه بر ثانیه است. دو تخمین از لاپلاسین هرچه به هم نزدیک‌تر باشند، دما در این بازه به یک سهمی نزدیک‌تر است.');
- }else{
-  const [Tc,TE,TW,TN,TS]=r.T,h=r.hx;
-  Plotly.react('lp_plot',[{x:[0,h,-h,0,0],y:[0,0,0,r.hy,-r.hy],mode:'markers+text',text:['t₃: '+Tc,TE,TW,TN,TS],textposition:'top center',
-   marker:{size:22,color:[Tc,TE,TW,TN,TS],colorscale:'YlOrRd',showscale:false,line:{width:1,color:css('--ink')}}}],{...L,xaxis:{title:'x',gridcolor:css('--line'),zeroline:false},yaxis:{title:'y',gridcolor:css('--line'),zeroline:false,scaleanchor:'x'}},cfg);
-  row(o,'لاپلاسین دوبعدی در t₃','\\nabla^2T\\approx\\frac{T_E-2T_c+T_W}{h_x^2}+\\frac{T_N-2T_c+T_S}{h_y^2}='+p5(r.lx)+'+'+p5(r.ly)+'='+p5(r.lap));
-  row(o,'گرادیان دما در t₃','\\nabla T\\approx('+p5(r.gx)+',\\ '+p5(r.gy)+')');
-  row(o,'معادله‌ی گرما','\\frac{\\partial T}{\\partial t}=\\alpha\\nabla^2T='+p5(r.rate));
-  say(o,(r.lap>0?'لاپلاسین مثبت است: مرکز از میانگین همسایه‌ها سردتر است و گرم می‌شود. ':r.lap<0?'لاپلاسین منفی است: مرکز از میانگین همسایه‌ها داغ‌تر است و سرد می‌شود. ':'لاپلاسین صفر است: مرکز با میانگین همسایه‌ها هم‌دماست. ')+'این تخمین وقتی خوب است که فاصله‌ی همسایه‌ها نسبت به تغییرات دما کوچک باشد. برای دقت بیشتر، فاصله‌ها را کمتر بگیرید.');
- }}
-$('lp_run').onclick=runLp;
-
-const DEF={
- dbl:{f:'x*y',a:'0',b:'2',c:'0',d:'x'},
- vol:{f:'x+y+z',a:'0',b:'1',c:'0',d:'1-x',e:'0',h:'1-x-y'},
- surf:{f:'1',g:'x+y',a:'0',b:'1',c:'0',d:'1'},
- flux:{F1:'x',F2:'y',F3:'z',g:'2-x-y',a:'0',b:'1',c:'0',d:'1'}};
-function miKind(fill){const k=$('mi_k').value;
- document.querySelectorAll('#mi [data-k]').forEach(e=>e.style.display=e.dataset.k.split(' ').includes(k)?'':'none');
- if(fill){const D=DEF[k];['f','F1','F2','F3','g','a','b','c','d','e','h'].forEach(n=>{const el=$('mi_'+n);if(el&&D[n]!=null)el.value=D[n]});}
- $('mi_plot').style.display=k=='vol'?'none':'';}
-$('mi_k').onchange=()=>{miKind(true);runMi()};
-const LAT={dbl:'\\iint_R f\\,dA',vol:'\\iiint_V f\\,dV',surf:'\\iint_S f\\,dS=\\iint_R f(x,y,g)\\sqrt{1+g_x^2+g_y^2}\\,dA',flux:'\\iint_S \\vec F\\cdot\\hat n\\,dS=\\
+const lay=()=>({margin:{t:10,r:10,b:40,l:50},paper_bgcolo
