@@ -91,7 +91,7 @@ nav{overflow-x:auto}nav button{white-space:nowrap}textarea{min-height:0}.how{mar
 </style></head><body>
 <header><h1>آزمایشگاه ریاضی شیمی</h1><p>سینتیک، حساب برداری، الکتریسته و مغناطیس، همه در مرورگر شما</p></header>
 <div id="status">در حال بارگذاری موتور پایتون (بار اول چند ده مگابایت دانلود می‌شود)…</div>
-<nav><button class="on" data-t="kin">سینتیک واکنش</button><button data-t="sc">میدان اسکالر</button><button data-t="s3">گرادیان سه‌بعدی</button><button data-t="ch">مشتق زنجیره‌ای</button><button data-t="vf">میدان برداری</button><button data-t="v3">میدان برداری سه‌بعدی</button><button data-t="el">الکتریسته</button><button data-t="mg">مغناطیس صفحه‌ای</button><button data-t="m3">مغناطیس سه‌بعدی</button><button data-t="la">بردار و ماتریس</button><button data-t="lp">لاپلاسین و گرما</button><button data-t="mi">انتگرال سطحی و حجمی</button><button data-t="cas">ماشین‌حساب</button></nav><main><section id="kin" class="on"><details class="how" open><summary>توضیح این بخش</summary><p>در این بخش می‌بینید غلظت یک ماده با گذشت زمان چطور کم می‌شود. «مرتبه‌ی واکنش» تعیین می‌کند سرعت واکنش چقدر به غلظت وابسته است. با اسلایدر ثابت سرعت k را عوض کنید و تغییر منحنی را ببینید. اگر داده‌ی آزمایشگاهی دارید، برنامه k را با بازه‌ی اطمینان برازش می‌کند و بهترین مرتبه را پیشنهاد می‌دهد.</p></details>
+<nav><button class="on" data-t="kin">سینتیک واکنش</button><button data-t="sc">میدان اسکالر</button><button data-t="s3">گرادیان سه‌بعدی</button><button data-t="ch">مشتق زنجیره‌ای</button><button data-t="vf">میدان برداری</button><button data-t="v3">میدان برداری سه‌بعدی</button><button data-t="el">الکتریسته</button><button data-t="mg">مغناطیس صفحه‌ای</button><button data-t="m3">مغناطیس سه‌بعدی</button><button data-t="la">بردار و ماتریس</button><button data-t="lp">لاپلاسین و گرما</button><button data-t="ln">انتگرال خطی</button><button data-t="mi">انتگرال سطحی و حجمی</button><button data-t="cas">ماشین‌حساب</button></nav><main><section id="kin" class="on"><details class="how" open><summary>توضیح این بخش</summary><p>در این بخش می‌بینید غلظت یک ماده با گذشت زمان چطور کم می‌شود. «مرتبه‌ی واکنش» تعیین می‌کند سرعت واکنش چقدر به غلظت وابسته است. با اسلایدر ثابت سرعت k را عوض کنید و تغییر منحنی را ببینید. اگر داده‌ی آزمایشگاهی دارید، برنامه k را با بازه‌ی اطمینان برازش می‌کند و بهترین مرتبه را پیشنهاد می‌دهد.</p></details>
   <div class="grid">
     <div>
       <h2>مدل و پارامترها</h2>
@@ -287,6 +287,17 @@ nav{overflow-x:auto}nav button{white-space:nowrap}textarea{min-height:0}.how{mar
 <div class="two"><div><label for="lp_hx">فاصله‌ی شرق و غرب (h<sub>x</sub>)</label><input type="text" id="lp_hx" value="1"></div><div><label for="lp_hy">فاصله‌ی شمال و جنوب (h<sub>y</sub>)</label><input type="text" id="lp_hy" value="1"></div></div>
 </div>
 <button class="act" id="lp_run">محاسبه</button></div><div><div id="lp_plot" class="plot"></div></div></div><div id="lp_out"></div></section>
+<section id="ln"><details class="how" open><summary>توضیح این بخش</summary><p>در انتگرال خطی، مسیر را با یک پارامتر t توصیف می‌کنیم: r(t) = (x(t), y(t), z(t)). روش حل همیشه همین است: ۱) r′(t) را حساب می‌کنیم، ۲) اندازه‌ی آن |r′| می‌شود ds/dt، ۳) کمیت‌ها را برحسب t می‌نویسیم، ۴) از t₀ تا t₁ انتگرال می‌گیریم. چهار حالت داریم. انتگرال f ds کمیت اسکالر را روی منحنی جمع می‌زند، مثل جرم سیم یا بار روی سیم. انتگرال F·dr کار نیرو یا گردش میدان است. انتگرال ∇f·dr برای میدان گرادیانی است و طبق قضیه‌ی بنیادی برابر f(B) − f(A) می‌شود؛ هم مستقیم حساب می‌شود و هم با قضیه تا ببینید یکی‌اند. حالت آخر جرم و مرکز جرم و گشتاور لختی یک سیم با چگالی ρ است.</p></details>
+<h2>انتگرال خطی: اسکالر، کار، گرادیان و جرم سیم</h2>
+<div class="grid"><div>
+<label for="ln_k">نوع انتگرال</label><select id="ln_k"><option value="sc">اسکالر ∫ f ds</option><option value="wk">برداری ∫ F·dr (کار و گردش)</option><option value="gr">گرادیان ∫ ∇f·dr</option><option value="ms">جرم و مرکز جرم سیم</option></select>
+<div data-k="sc gr ms"><label for="ln_f" id="ln_fl">f(x, y, z)</label><input type="text" id="ln_f"></div>
+<div data-k="wk"><label for="ln_F1">F₁</label><input type="text" id="ln_F1"><label for="ln_F2">F₂</label><input type="text" id="ln_F2"><label for="ln_F3">F₃</label><input type="text" id="ln_F3"></div>
+<label for="ln_x">x(t)</label><input type="text" id="ln_x">
+<label for="ln_y">y(t)</label><input type="text" id="ln_y">
+<label for="ln_z">z(t)</label><input type="text" id="ln_z">
+<div class="two"><div><label for="ln_t0">t از</label><input type="text" id="ln_t0"></div><div><label for="ln_t1">تا</label><input type="text" id="ln_t1"></div></div>
+<button class="act" id="ln_run">محاسبه</button></div><div><div id="ln_plot" class="plot"></div></div></div><div id="ln_out"></div></section>
 <section id="mi"><details class="how" open><summary>توضیح این بخش</summary><p>انتگرال دوگانه مقدار یک کمیت را روی یک ناحیه‌ی صفحه جمع می‌زند. انتگرال سه‌گانه همین کار را در حجم می‌کند، مثلاً جرم یا گرمای کل. انتگرال سطحی مقدار کمیت را روی خود سطح z = g(x, y) جمع می‌زند و ضریب √(1+g<sub>x</sub>²+g<sub>y</sub>²) مساحت واقعی سطح را وارد می‌کند. شار یعنی چه مقدار از میدان برداری F از سطح (به سمت بالا) رد می‌شود. کران y می‌تواند به x وابسته باشد و کران z به x و y. اگر انتگرال‌ده چندجمله‌ای باشد جواب دقیق هم نوشته می‌شود؛ در هر حالت مقدار عددی هم محاسبه می‌شود.</p></details>
 <h2>انتگرال دوگانه، سه‌گانه، سطحی و شار</h2>
 <div class="grid"><div>
@@ -297,6 +308,7 @@ nav{overflow-x:auto}nav button{white-space:nowrap}textarea{min-height:0}.how{mar
 <div class="two"><div><label for="mi_a">x از</label><input type="text" id="mi_a"></div><div><label for="mi_b">تا</label><input type="text" id="mi_b"></div></div>
 <div class="two"><div><label for="mi_c">y از (می‌تواند تابع x باشد)</label><input type="text" id="mi_c"></div><div><label for="mi_d">تا</label><input type="text" id="mi_d"></div></div>
 <div data-k="vol" class="two"><div><label for="mi_e">z از (تابع x و y)</label><input type="text" id="mi_e"></div><div><label for="mi_h">تا</label><input type="text" id="mi_h"></div></div>
+<div data-k="vol dbl surf"><label><input type="checkbox" id="mi_cm" style="width:auto;margin-inline-end:8px">مرکز جرم و گشتاور لختی (f را چگالی بگیر)</label></div>
 <button class="act" id="mi_run">محاسبه</button></div><div><div id="mi_plot" class="plot"></div></div></div><div id="mi_out"></div></section>
 <section id="cas"><details class="how" open><summary>توضیح این بخش</summary><p>عبارت را با دکمه‌ها یا با صفحه‌کلید بنویسید. روی هر دکمه هم علامت ریاضی و هم نام فارسی‌اش آمده است. سپس یکی از عملیات پایین را بزنید؛ برنامه جواب را همراه با مراحل نشان می‌دهد. برای حل معادله، طرف دوم را با علامت = بنویسید.</p></details>
 <input type="text" id="c_expr" dir="ltr" value="x^2*sin(x)" style="font-size:18px">
@@ -675,10 +687,10 @@ def multi(js):
         def mk(expr, vs):
             fn = lambdify(vs, expr, 'numpy')
             return lambda *q: float(fn(*q))
-        g = None
+        g = None; zlo = zhi = None
         if kind == 'vol':
-            integrand = Pm(d['f']); e, h = Pm(d['e']), Pm(d['h'])
-            lims = [(z, e, h), (y, c, dd), (x, a, b)]
+            integrand = Pm(d['f']); zlo, zhi = Pm(d['e']), Pm(d['h'])
+            lims = [(z, zlo, zhi), (y, c, dd), (x, a, b)]
         elif kind == 'dbl':
             integrand = Pm(d['f']); lims = [(y, c, dd), (x, a, b)]
         else:
@@ -690,16 +702,24 @@ def multi(js):
                 integrand = (-F1*gx - F2*gy + F3).subs(z, g)
             lims = [(y, c, dd), (x, a, b)]
         af, bf = float(a), float(b)
-        if kind == 'vol':
-            val, err = tplquad(mk(integrand, (z, y, x)), af, bf, mk(c, (x,)), mk(dd, (x,)), mk(e, (x, y)), mk(h, (x, y)))
-        else:
-            val, err = dblquad(mk(integrand, (y, x)), af, bf, mk(c, (x,)), mk(dd, (x,)))
+        def numint(q):
+            if kind == 'vol':
+                return tplquad(mk(q, (z, y, x)), af, bf, mk(c, (x,)), mk(dd, (x,)), mk(zlo, (x, y)), mk(zhi, (x, y)))
+            return dblquad(mk(q, (y, x)), af, bf, mk(c, (x,)), mk(dd, (x,)))
+        val, err = numint(integrand)
         exact = None; chk = None
         if integrand.is_polynomial(x, y, z):
             r = integrate(integrand, *lims)
             if not r.has(Integral):
                 exact = latex(simplify(r)); chk = bool(abs(float(r) - val) < 1e-6*(1 + abs(val)))
         out = {"ok": True, "kind": kind, "val": float(val), "err": float(err), "exact": exact, "chk": chk, "integrand": latex(integrand)}
+        if d.get('cm') and kind in ('vol', 'dbl', 'surf'):
+            if abs(val) < 1e-12:
+                raise ValueError("جرم کل صفر شد")
+            co = [numint(x*integrand)[0]/val, numint(y*integrand)[0]/val]
+            if kind == 'vol': co.append(numint(z*integrand)[0]/val)
+            if kind == 'surf': co.append(numint(g*integrand)[0]/val)
+            out["cm"] = {"M": float(val), "c": [float(v) for v in co], "Iz": float(numint((x**2 + y**2)*integrand)[0])}
         if kind != 'vol':
             n = 26; U = np.linspace(0, 1, n); xs = np.linspace(af, bf, n)
             cf, df = mk(c, (x,)), mk(dd, (x,))
@@ -710,8 +730,66 @@ def multi(js):
             Zg = np.broadcast_to(np.asarray(fz(Xg, Yg), float), Xg.shape)
             out["X"] = Xg.tolist(); out["Y"] = Yg.tolist(); out["Z"] = [[fin(v) for v in row] for row in Zg]
         return json.dumps(out)
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
+    except Exception as err_:
+        return json.dumps({"ok": False, "msg": str(err_)})
+
+def lineint(js):
+    try:
+        from sympy import sqrt, integrate, diff, latex, lambdify, simplify, Integral, Matrix
+        from scipy.integrate import quad
+        d = json.loads(js); k = d['kind']
+        loc = {'x': x, 'y': y, 'z': z, 't': T_}
+        Pm = lambda s: parse_expr(s, local_dict=loc, transformations=TR)
+        xt, yt, zt = Pm(d['xt']), Pm(d['yt']), Pm(d['zt']); t0, t1 = Pm(d['t0']), Pm(d['t1'])
+        a, b = float(t0), float(t1)
+        R = Matrix([xt, yt, zt]); Rp = R.diff(T_); sp = simplify(sqrt(Rp.dot(Rp)))
+        sb = {x: xt, y: yt, z: zt}
+        def num(q):
+            fn = lambdify(T_, q, 'numpy')
+            return float(quad(lambda tv: float(fn(tv)), a, b, limit=200)[0])
+        def ex(q):
+            if q.free_symbols <= {T_} and q.count_ops() < 60:
+                try:
+                    r = integrate(q, (T_, t0, t1))
+                    if not r.has(Integral): return simplify(r)
+                except Exception:
+                    pass
+            return None
+        st = [["مسیر", "\\vec r(t)=" + latex(R.T)], ["بردار سرعت", "\\vec r'(t)=" + latex(Rp.T)],
+              ["عنصر طول: ds = |r′| dt", "|\\vec r'|=" + latex(sp)]]
+        out = {"ok": True, "kind": k, "len": num(sp)}
+        if k == 'sc':
+            f = Pm(d['f']); fr = simplify(f.subs(sb)); q = simplify(fr*sp)
+            st += [["کمیت روی مسیر", "f(\\vec r(t))=" + latex(fr)], ["انتگرال‌ده", "f\\,|\\vec r'|=" + latex(q)]]
+            val = num(q); e = ex(q)
+        elif k == 'wk':
+            F = Matrix([Pm(d['F1']), Pm(d['F2']), Pm(d['F3'])]); Fr = F.subs(sb).applyfunc(simplify); q = simplify(Fr.dot(Rp))
+            curl = Matrix([diff(F[2], y) - diff(F[1], z), diff(F[0], z) - diff(F[2], x), diff(F[1], x) - diff(F[0], y)]).applyfunc(simplify)
+            st += [["میدان روی مسیر", "\\vec F(\\vec r(t))=" + latex(Fr.T)], ["انتگرال‌ده", "\\vec F\\cdot\\vec r'=" + latex(q)],
+                   ["کرل میدان", "\\nabla\\times\\vec F=" + latex(curl.T)]]
+            out["cons"] = bool(all(cv == 0 for cv in curl))
+            val = num(q); e = ex(q)
+        elif k == 'gr':
+            f = Pm(d['f']); G = Matrix([diff(f, x), diff(f, y), diff(f, z)]); Gr = G.subs(sb).applyfunc(simplify); q = simplify(Gr.dot(Rp))
+            fA = simplify(f.subs(sb).subs(T_, t0)); fB = simplify(f.subs(sb).subs(T_, t1)); th = simplify(fB - fA)
+            st += [["گرادیان", "\\nabla f=" + latex(G.T)], ["گرادیان روی مسیر", "\\nabla f(\\vec r(t))=" + latex(Gr.T)],
+                   ["انتگرال‌ده", "\\nabla f\\cdot\\vec r'=" + latex(q)],
+                   ["قضیه‌ی بنیادی", "\\int_C\\nabla f\\cdot d\\vec r=f(B)-f(A)=" + latex(fB) + "-(" + latex(fA) + ")=" + latex(th)]]
+            out["thm"] = float(th)
+            val = num(q); e = ex(q)
+        else:
+            rho = Pm(d['f']); w = simplify(rho.subs(sb)*sp); M = num(w)
+            if abs(M) < 1e-12: raise ValueError("جرم کل صفر شد")
+            st += [["چگالی روی مسیر", "\\rho(\\vec r(t))=" + latex(simplify(rho.subs(sb)))], ["انتگرال‌ده جرم", "\\rho\\,|\\vec r'|=" + latex(w)]]
+            out["cm"] = {"c": [num(simplify(cc*w))/M for cc in (xt, yt, zt)], "Iz": num(simplify((xt**2 + yt**2)*w))}
+            val = M; e = ex(w)
+        out["val"] = float(val); out["exact"] = latex(e) if e is not None else None; out["steps"] = st
+        ts = np.linspace(a, b, 200)
+        for nm, q in (("px", xt), ("py", yt), ("pz", zt)):
+            out[nm] = [fin(v) for v in np.broadcast_to(np.asarray(lambdify(T_, q, 'numpy')(ts), float), ts.shape)]
+        return json.dumps(out)
+    except Exception as err_:
+        return json.dumps({"ok": False, "msg": str(err_)})
 `;
 (function(){
 
@@ -1153,1235 +1231,4 @@ const DEF={
  surf:{f:'1',g:'x+y',a:'0',b:'1',c:'0',d:'1'},
  flux:{F1:'x',F2:'y',F3:'z',g:'2-x-y',a:'0',b:'1',c:'0',d:'1'}};
 function miKind(fill){const k=$('mi_k').value;
- document.querySelectorAll('#mi [data-k]').forEach(e=>e.style.display=e.dataset.k.split(' ').includes(k)?'':'none');
- if(fill){const D=DEF[k];['f','F1','F2','F3','g','a','b','c','d','e','h'].forEach(n=>{const el=$('mi_'+n);if(el&&D[n]!=null)el.value=D[n]});}
- $('mi_plot').style.display=k=='vol'?'none':'';}
-$('mi_k').onchange=()=>{miKind(true);runMi()};
-const LAT={dbl:'\\iint_R f\\,dA',vol:'\\iiint_V f\\,dV',surf:'\\iint_S f\\,dS=\\iint_R f(x,y,g)\\sqrt{1+g_x^2+g_y^2}\\,dA',flux:'\\iint_S \\vec F\\cdot\\hat n\\,dS=\\iint_R(-F_1g_x-F_2g_y+F_3)\\,dA'};
-function runMi(){const o=$('mi_out');o.innerHTML='';const k=$('mi_k').value;
- const d={kind:k};['f','F1','F2','F3','g','a','b','c','d','e','h'].forEach(n=>{const el=$('mi_'+n);if(el)d[n]=norm(el.value)});
- const r=call('multi',d);if(!r.ok)return bad(o,r.msg);
- if(k!='vol'){const sc={xaxis:{title:'x'},yaxis:{title:'y'},zaxis:{title:'z'}};
-  Plotly.react('mi_plot',[{type:'surface',x:r.X,y:r.Y,z:r.Z,colorscale:'Viridis',showscale:false}],{margin:{t:0,r:0,b:0,l:0},paper_bgcolor:'rgba(0,0,0,0)',font:{color:css('--ink')},scene:sc},cfg);}
- row(o,'تعریف',LAT[k]);
- row(o,'انتگرال‌ده پس از جای‌گذاری',r.integrand);
- row(o,'مقدار عددی','='+Number(r.val).toPrecision(9));
- if(r.exact)row(o,'جواب دقیق','='+r.exact);
- say(o,r.exact?(r.chk?'جواب دقیق با SymPy به دست آمد و با محاسبه‌ی عددی هم یکی است.':'جواب دقیق و عددی با هم نمی‌خوانند؛ فرمول و کران‌ها را دوباره بررسی کنید.'):'انتگرال‌ده چندجمله‌ای نیست، پس فقط مقدار عددی (با خطای تخمینی حدود '+Number(r.err).toExponential(1)+') محاسبه شد.');}
-$('mi_run').onclick=runMi;
-miKind(true);lpMode();
-HK.lp=runLp;HK.mi=runMi;INIT.push(p=>{py=p});})();
-(async()=>{const S=document.getElementById('status');
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-let step='';
-async function boot(){
- S.textContent='در حال بارگذاری موتور پایتون… (۱/۴)';
- step='pyodide';
-<!DOCTYPE html>
-<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>آزمایشگاه ریاضی شیمی — نسخه یکپارچه ۰٫۳</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<style>
-:root{--bg:#f2f5f7;--card:#fff;--ink:#12263a;--mut:#5b6b7a;--line:#d5dde4;--acc:#0e7c86;--acc2:#b7791f;--ok:#177245;--bad:#b3261e;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1a24;--card:#16232f;--ink:#e6edf3;--mut:#93a4b3;--line:#2a3b4a;--acc:#4cc2cc;--acc2:#e6b04f;--ok:#5fd08e;--bad:#ff8a80;color-scheme:dark}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.8 Vazirmatn,Tahoma,sans-serif}
-header{padding:22px 20px 8px;max-width:1100px;margin:auto}
-h1{font-size:26px;font-weight:800;margin:0}
-header p{margin:2px 0 0;color:var(--mut)}
-#status{max-width:1100px;margin:8px auto;padding:8px 14px;border:1px dashed var(--line);border-radius:6px;color:var(--mut)}
-#status.ready{border-style:solid;color:var(--ok)}
-nav{max-width:1100px;margin:10px auto 0;padding:0 20px;display:flex;gap:6px}
-nav button{font:inherit;padding:8px 18px;border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:transparent;color:var(--mut);cursor:pointer}
-nav button.on{background:var(--card);color:var(--ink);font-weight:600}
-main{max-width:1100px;margin:0 auto;padding:0 20px 40px}
-section{display:none;background:var(--card);border:1px solid var(--line);border-radius:0 8px 8px 8px;padding:18px}
-section.on{display:block}
-.grid{display:grid;grid-template-columns:300px 1fr;gap:20px}
-@media(max-width:800px){.grid{grid-template-columns:1fr}}
-h2{font-size:16px;margin:18px 0 8px;font-weight:600}
-h2:first-child{margin-top:0}
-label{display:block;margin:10px 0 2px}
-label b{color:var(--acc);font-weight:600;direction:ltr;unicode-bidi:embed}
-select,input[type=text],textarea{font:inherit;width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
-textarea{direction:ltr;font-family:ui-monospace,Consolas,monospace;font-size:13px;min-height:130px}
-input[type=range]{width:100%;accent-color:var(--acc)}
-button.act{font:inherit;font-weight:600;padding:8px 16px;margin:8px 6px 0 0;border:0;border-radius:6px;background:var(--acc);color:#fff;cursor:pointer}
-button.act.alt{background:transparent;color:var(--acc);border:1px solid var(--acc)}
-button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
-#plot,#res{width:100%;height:340px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:34px 34px;border-radius:6px}
-#res{height:200px}
-.step{display:flex;gap:10px;align-items:baseline;border-bottom:1px solid var(--line);padding:2px 0}
-.step>span{min-width:150px;color:var(--mut);font-size:13px}
-.step>div{direction:ltr;flex:1;overflow-x:auto}
-.badge{display:inline-block;padding:0 10px;border-radius:12px;font-size:13px;margin-right:8px;border:1px solid}
-.badge.ok{color:var(--ok)}.badge.bad{color:var(--bad)}
-table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{border-bottom:1px solid var(--line);padding:4px 8px;text-align:right}
-tr.best td{font-weight:600;color:var(--acc)}
-.num{direction:ltr;unicode-bidi:embed}
-.note{color:var(--mut);font-size:13px}
-.err{color:var(--bad)}
-#casout{margin-top:14px;min-height:60px;direction:ltr;overflow-x:auto}
-
-:root{--bg:#f2f5f7;--card:#fff;--ink:#12263a;--mut:#5b6b7a;--line:#d5dde4;--acc:#0e7c86;--acc2:#b7791f;--ok:#177245;--bad:#b3261e;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1a24;--card:#16232f;--ink:#e6edf3;--mut:#93a4b3;--line:#2a3b4a;--acc:#4cc2cc;--acc2:#e6b04f;--ok:#5fd08e;--bad:#ff8a80;color-scheme:dark}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.8 Vazirmatn,Tahoma,sans-serif}
-header,nav,main,#status{max-width:1100px;margin-inline:auto}
-header{padding:22px 20px 8px}
-h1{font-size:26px;font-weight:800;margin:0}
-header p{margin:2px 0 0;color:var(--mut)}
-#status{margin-block:8px;padding:8px 14px;border:1px dashed var(--line);border-radius:6px;color:var(--mut)}
-#status.ready{border-style:solid;color:var(--ok)}
-nav{margin-top:10px;padding:0 20px;display:flex;gap:6px;flex-wrap:wrap}
-nav button{font:inherit;padding:8px 18px;border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:transparent;color:var(--mut);cursor:pointer}
-nav button.on{background:var(--card);color:var(--ink);font-weight:600}
-main{padding:0 20px 40px}
-section{display:none;background:var(--card);border:1px solid var(--line);border-radius:0 8px 8px 8px;padding:18px}
-section.on{display:block}
-.grid{display:grid;grid-template-columns:310px 1fr;gap:20px}
-@media(max-width:800px){.grid{grid-template-columns:1fr}}
-h2{font-size:16px;margin:16px 0 6px;font-weight:600}
-h2:first-child{margin-top:0}
-label{display:block;margin:8px 0 2px}
-label b{color:var(--acc);font-weight:600;direction:ltr;unicode-bidi:embed}
-select,input[type=text],input[type=number],textarea{font:inherit;width:100%;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);direction:ltr}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-input[type=range]{width:100%;accent-color:var(--acc)}
-button.act{font:inherit;font-weight:600;padding:8px 16px;margin:8px 6px 0 0;border:0;border-radius:6px;background:var(--acc);color:#fff;cursor:pointer}
-:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
-.plot{width:100%;height:430px;border-radius:6px}
-.row{display:flex;gap:10px;align-items:baseline;border-bottom:1px solid var(--line);padding:3px 0}
-.row>span{min-width:190px;color:var(--mut);font-size:13px}
-.row>div{direction:ltr;flex:1;overflow-x:auto}
-.say{margin:12px 0;padding:10px 14px;border-right:4px solid var(--acc);background:var(--bg);border-radius:4px}
-.note{color:var(--mut);font-size:13px}
-.err{color:var(--bad)}
-
-nav{overflow-x:auto}nav button{white-space:nowrap}textarea{min-height:0}.how{margin:0 0 14px;padding:8px 14px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}.how summary{cursor:pointer;font-weight:600}.how p{margin:6px 0}
-.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.keys{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:560px;margin:10px 0}
-.key{font:inherit;padding:6px 2px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);cursor:pointer;line-height:1.3}
-.key b{display:block;font-size:17px;direction:ltr}.key small{font-size:11px;color:var(--mut)}.key:hover{border-color:var(--acc)}.prev{direction:ltr;min-height:1.6em;color:var(--mut);margin:2px 0 6px;overflow-x:auto;font-size:14px}
-.hint{display:block;color:var(--mut);font-size:12px;font-weight:400}
-.help table{margin:6px 0;font-size:14px}.help td{direction:ltr;text-align:left}.help td:first-child{direction:rtl;text-align:right;color:var(--mut)}
-</style></head><body>
-<header><h1>آزمایشگاه ریاضی شیمی</h1><p>سینتیک، حساب برداری، الکتریسته و مغناطیس، همه در مرورگر شما</p></header>
-<div id="status">در حال بارگذاری موتور پایتون (بار اول چند ده مگابایت دانلود می‌شود)…</div>
-<nav><button class="on" data-t="kin">سینتیک واکنش</button><button data-t="sc">میدان اسکالر</button><button data-t="s3">گرادیان سه‌بعدی</button><button data-t="ch">مشتق زنجیره‌ای</button><button data-t="vf">میدان برداری</button><button data-t="v3">میدان برداری سه‌بعدی</button><button data-t="el">الکتریسته</button><button data-t="mg">مغناطیس صفحه‌ای</button><button data-t="m3">مغناطیس سه‌بعدی</button><button data-t="la">بردار و ماتریس</button><button data-t="lp">لاپلاسین و گرما</button><button data-t="mi">انتگرال سطحی و حجمی</button><button data-t="cas">ماشین‌حساب</button></nav><main><section id="kin" class="on"><details class="how" open><summary>توضیح این بخش</summary><p>در این بخش می‌بینید غلظت یک ماده با گذشت زمان چطور کم می‌شود. «مرتبه‌ی واکنش» تعیین می‌کند سرعت واکنش چقدر به غلظت وابسته است. با اسلایدر ثابت سرعت k را عوض کنید و تغییر منحنی را ببینید. اگر داده‌ی آزمایشگاهی دارید، برنامه k را با بازه‌ی اطمینان برازش می‌کند و بهترین مرتبه را پیشنهاد می‌دهد.</p></details>
-  <div class="grid">
-    <div>
-      <h2>مدل و پارامترها</h2>
-      <label for="model">مرتبه واکنش</label>
-      <select id="model">
-        <option value="1">مرتبه اول: dC/dt = −kC</option>
-        <option value="2">مرتبه دوم: dC/dt = −kC²</option>
-        <option value="0">مرتبه صفر: dC/dt = −k</option>
-      </select>
-      <label for="k">ثابت سرعت k = <b id="kv"></b></label>
-      <input type="range" id="k" min="0.01" max="2" step="0.01" value="0.15">
-      <label for="c0">غلظت اولیه C₀ (mol/L) = <b id="c0v"></b></label>
-      <input type="range" id="c0" min="0.1" max="5" step="0.1" value="1">
-      <label for="tm">بازه زمانی (s) = <b id="tmv"></b></label>
-      <input type="range" id="tm" min="1" max="100" step="1" value="20">
-      <button class="act" id="play">پخش انیمیشن</button>
-      <p class="note" id="half"></p>
-    </div>
-    <div><h2>نمودار غلظت بر حسب زمان</h2><div id="plot"></div></div>
-  </div>
-  <h2>مراحل حل <span id="vbadge"></span></h2>
-  <div id="steps"></div>
-  <p class="note">مراحل برای هر مدل از پیش نوشته شده‌اند و درستی جواب نهایی (برقراری معادله، شرط اولیه و نیمه‌عمر) با SymPy بررسی می‌شود؛ هنوز موتور عمومی مرحله‌به‌مرحله نیست.</p>
-
-  <h2>برازش داده‌های آزمایشگاهی</h2>
-  <div class="grid">
-    <div>
-      <label for="data">داده‌ها: هر خط «زمان، غلظت» (ارقام فارسی هم پذیرفته می‌شود)</label>
-      <textarea id="data" spellcheck="false" placeholder="0, 1.00&#10;2, 0.75&#10;4, 0.54"></textarea>
-      <button class="act" id="fit">برازش و مقایسه مدل‌ها</button>
-      <button class="act alt" id="sample">داده نمونه</button>
-    </div>
-    <div><div id="res"></div></div>
-  </div>
-  <div id="fitout"></div>
-</section><section id="sc"><details class="how" open><summary>توضیح این بخش</summary><p>میدان اسکالر به هر نقطه یک عدد می‌دهد، مثل دما. گرادیان برداری است که به سمت بیشترین افزایش اشاره می‌کند و اندازه‌اش آهنگ آن افزایش است. مشتق جهتی یعنی همین تغییر را در جهتی دلخواه سنجیدن: D = |∇f| cosφ. اگر جهت بر گرادیان عمود باشد، چیزی تغییر نمی‌کند. مراحل حل در پایین صفحه آمده است.</p></details><details class="how help"><summary>راهنمای نوشتن فرمول و عدد</summary>
-<table><tr><td>ضرب (حتماً ستاره)</td><td>2*x</td></tr><tr><td>تقسیم</td><td>x/2</td></tr><tr><td>توان</td><td>x^2</td></tr>
-<tr><td>جذر</td><td>sqrt(x)</td></tr><tr><td>تابع نمایی (eᵘ)</td><td>exp(u)</td></tr><tr><td>لگاریتم طبیعی</td><td>log(x)</td></tr>
-<tr><td>سینوس / کسینوس</td><td>sin(x) , cos(x)</td></tr><tr><td>عدد پی / قدر مطلق</td><td>pi , Abs(x)</td></tr></table>
-<p>مثال: <b dir="ltr">20 + 60*exp(-(x^2+y^2)/8)</b> یعنی ۲۰ + ۶۰e<sup>−(x²+y²)/8</sup>. مختصات نقطه را در کادرهای عددی بنویسید (اعشار با نقطه یا ممیز فارسی). زیر هر کادر فرمول، پیش‌نمایش ریاضی آن نشان داده می‌شود؛ اگر پیش‌نمایش با چیزی که منظورتان بود فرق داشت، فرمول را اصلاح کنید.</p></details>
-  <div class="grid">
-    <div>
-      <h2>میدان f(x, y)</h2>
-      <label for="spre">نمونه</label>
-      <select id="spre"></select>
-      <label for="sf">تابع (دما، پتانسیل و …)</label>
-      <input type="text" id="sf">
-      <div class="two">
-        <div><label for="sx">x₀</label><input type="number" id="sx" step="0.5"></div>
-        <div><label for="sy">y₀</label><input type="number" id="sy" step="0.5"></div>
-      </div>
-      <label for="sth">زاویه جهت از محور x: <b id="sthv"></b></label>
-      <input type="range" id="sth" min="0" max="360" step="1" value="30">
-      <label for="sds">گام کوچک Δs: <b id="sdsv"></b></label>
-      <input type="range" id="sds" min="0.01" max="1" step="0.01" value="0.1">
-      <label for="sR">نیم‌پهنای نمودار</label>
-      <input type="number" id="sR" value="6" min="1" step="1">
-      <button class="act" id="srun">تحلیل</button>
-    </div>
-    <div><div id="splot" class="plot"></div></div>
-  </div>
-  <div id="sout"></div>
-</section>
-<section id="ch"><details class="how" open><summary>توضیح این بخش</summary><p>وقتی ذره‌ای در میدان دما حرکت می‌کند، دمایی که حس می‌کند هم از راه مکان و هم از راه زمان عوض می‌شود. قاعده‌ی زنجیره‌ای این دو را به هم وصل می‌کند: dT/dt = ∇T · (سرعت ذره). جایی که این مقدار صفر شود، دمای ذره بیشینه یا کمینه است.</p></details><details class="how help"><summary>راهنمای نوشتن فرمول و عدد</summary>
-<table><tr><td>ضرب (حتماً ستاره)</td><td>2*x</td></tr><tr><td>تقسیم</td><td>x/2</td></tr><tr><td>توان</td><td>x^2</td></tr>
-<tr><td>جذر</td><td>sqrt(x)</td></tr><tr><td>تابع نمایی (eᵘ)</td><td>exp(u)</td></tr><tr><td>لگاریتم طبیعی</td><td>log(x)</td></tr>
-<tr><td>سینوس / کسینوس</td><td>sin(x) , cos(x)</td></tr><tr><td>عدد پی / قدر مطلق</td><td>pi , Abs(x)</td></tr></table>
-<p>مثال: <b dir="ltr">20 + 60*exp(-(x^2+y^2)/8)</b> یعنی ۲۰ + ۶۰e<sup>−(x²+y²)/8</sup>. مختصات نقطه را در کادرهای عددی بنویسید (اعشار با نقطه یا ممیز فارسی). زیر هر کادر فرمول، پیش‌نمایش ریاضی آن نشان داده می‌شود؛ اگر پیش‌نمایش با چیزی که منظورتان بود فرق داشت، فرمول را اصلاح کنید.</p></details><h2>مشتق زنجیره‌ای: دما (یا پتانسیل) در طول یک مسیر</h2>
-<p class="note">ذره‌ای روی مسیر (x(t), y(t)) حرکت می‌کند؛ dT/dt = ∇T · r′(t). پیش‌فرض: مسیر خطی که از کنار بخاری می‌گذرد.</p>
-<div class="grid"><div>
-<label for="ch_f">T(x, y)</label><input type="text" id="ch_f" value="20 + 60*exp(-(x^2+y^2)/8)">
-<label for="ch_x">x(t)</label><input type="text" id="ch_x" value="3*t - 6">
-<label for="ch_y">y(t)</label><input type="text" id="ch_y" value="2">
-<div class="two"><div><label for="ch_t0">t از</label><input type="number" id="ch_t0" value="0"></div><div><label for="ch_t1">تا</label><input type="number" id="ch_t1" value="4"></div></div>
-<button class="act" id="ch_run">محاسبه</button></div><div><div id="ch_plot" class="plot"></div></div></div><div id="ch_out"></div></section>
-
-<section id="el"><details class="how" open><summary>توضیح این بخش</summary><p>هر بار الکتریکی دور خود میدان و پتانسیل می‌سازد و اثر چند بار با هم جمع می‌شود (برهم‌نهی). خطوط رنگی هم‌پتانسیل‌اند و میدان همیشه بر آن‌ها عمود و از پتانسیل زیاد به کم است: E = −∇V. بار آزمون را در یک نقطه می‌گذارید تا نیروی وارد بر آن را ببینید.</p></details><h2>الکتریسته‌ی ساکن: میدان و پتانسیل چند بار</h2>
-<p class="note">هر خط یک بار: «q (میکروکولن)، x، y (متر)». میدان در صفحه‌ی z=۰ از قانون کولن سه‌بعدی حساب می‌شود.</p>
-<div class="grid"><div>
-<label for="el_pre">نمونه</label><select id="el_pre"></select>
-<label for="el_q">بارها</label><textarea id="el_q" rows="4"></textarea>
-<div class="two"><div><label for="el_x">x₀ نقطه</label><input type="number" id="el_x" value="1" step="0.5"></div><div><label for="el_y">y₀ نقطه</label><input type="number" id="el_y" value="1" step="0.5"></div></div>
-<div class="two"><div><label for="el_q0">بار آزمون (µC)</label><input type="number" id="el_q0" value="1"></div><div><label for="el_R">نیم‌پهنا (m)</label><input type="number" id="el_R" value="5" min="1"></div></div>
-<button class="act" id="el_run">تحلیل</button></div><div><div id="el_plot" class="plot"></div></div></div><div id="el_out"></div></section>
-
-<section id="mg"><details class="how" open><summary>توضیح این بخش</summary><p>این‌جا سیم‌ها عمود بر صفحه‌اند. میدان هر سیم دایره‌وار دور آن می‌چرخد و با دور شدن ضعیف می‌شود. دو سیم هم‌جهت همدیگر را می‌ربایند. قانون آمپر می‌گوید جمع میدان روی هر مسیر بسته فقط به جریان درون مسیر بستگی دارد. برای جهت‌های دلخواه به بخش «مغناطیس سه‌بعدی» بروید.</p></details><h2>مغناطیس: سیم‌های راست و ذره‌ی باردار</h2>
-<p class="note">هر خط یک سیم عمود بر صفحه: «I (آمپر)، x، y». جریان مثبت یعنی به سمت خواننده.</p>
-<div class="grid"><div>
-<label for="mg_w">سیم‌ها</label><textarea id="mg_w" rows="3">5, -1.5, 0
-5, 1.5, 0</textarea>
-<div class="two"><div><label for="mg_x">x₀ نقطه</label><input type="number" id="mg_x" value="0" step="0.5"></div><div><label for="mg_y">y₀ نقطه</label><input type="number" id="mg_y" value="1" step="0.5"></div></div>
-<div class="two"><div><label for="mg_i2">جریان سیم آزمون (A)</label><input type="number" id="mg_i2" value="2"></div><div><label for="mg_R">نیم‌پهنا (m)</label><input type="number" id="mg_R" value="4" min="1"></div></div>
-<button class="act" id="mg_run">تحلیل سیم‌ها</button></div><div><div id="mg_plot" class="plot"></div></div></div><div id="mg_out"></div>
-<h2>ذره‌ی باردار در میدان یکنواخت (B رو به خواننده، v در صفحه)</h2>
-<div class="grid"><div>
-<label for="mp_q">q (C)</label><input type="text" id="mp_q" value="1.6e-19">
-<label for="mp_m">m (kg)</label><input type="text" id="mp_m" value="1.67e-27">
-<label for="mp_v">v (m/s)</label><input type="text" id="mp_v" value="1e6">
-<label for="mp_B">B (T)</label><input type="text" id="mp_B" value="0.1">
-<button class="act" id="mp_run">شبیه‌سازی</button></div><div><div id="mp_plot" class="plot"></div></div></div><div id="mp_out"></div></section>
-<section id="vf"><details class="how" open><summary>توضیح این بخش</summary><p>میدان برداری در هر نقطه یک جهت و اندازه دارد، مثل سرعت آب. واگرایی مثبت یعنی چشمه، منفی یعنی چاه. کرل غیرصفر یعنی گرداب. برگی که روی آب رها شود، مسیرش را سرعت میدان تعیین می‌کند. مراحل محاسبه‌ی واگرایی و کرل را در پایین می‌بینید.</p></details><details class="how help"><summary>راهنمای نوشتن فرمول و عدد</summary>
-<table><tr><td>ضرب (حتماً ستاره)</td><td>2*x</td></tr><tr><td>تقسیم</td><td>x/2</td></tr><tr><td>توان</td><td>x^2</td></tr>
-<tr><td>جذر</td><td>sqrt(x)</td></tr><tr><td>تابع نمایی (eᵘ)</td><td>exp(u)</td></tr><tr><td>لگاریتم طبیعی</td><td>log(x)</td></tr>
-<tr><td>سینوس / کسینوس</td><td>sin(x) , cos(x)</td></tr><tr><td>عدد پی / قدر مطلق</td><td>pi , Abs(x)</td></tr></table>
-<p>مثال: <b dir="ltr">20 + 60*exp(-(x^2+y^2)/8)</b> یعنی ۲۰ + ۶۰e<sup>−(x²+y²)/8</sup>. مختصات نقطه را در کادرهای عددی بنویسید (اعشار با نقطه یا ممیز فارسی). زیر هر کادر فرمول، پیش‌نمایش ریاضی آن نشان داده می‌شود؛ اگر پیش‌نمایش با چیزی که منظورتان بود فرق داشت، فرمول را اصلاح کنید.</p></details>
-  <div class="grid">
-    <div>
-      <h2>میدان برداری v = (vₓ, v_y)</h2>
-      <label for="vpre">نمونه</label>
-      <select id="vpre"></select>
-      <label for="vx">vₓ(x, y)</label><input type="text" id="vx">
-      <label for="vy">v_y(x, y)</label><input type="text" id="vy">
-      <div class="two">
-        <div><label for="vx0">x₀ (برگ)</label><input type="number" id="vx0" step="0.5"></div>
-        <div><label for="vy0">y₀ (برگ)</label><input type="number" id="vy0" step="0.5"></div>
-      </div>
-      <div class="two">
-        <div><label for="vT">مدت (s)</label><input type="number" id="vT" value="10" min="1"></div>
-        <div><label for="vR">نیم‌پهنای نمودار</label><input type="number" id="vR" value="4" min="1"></div>
-      </div>
-      <button class="act" id="vrun">تحلیل و رها کردن برگ</button>
-    </div>
-    <div><div id="vplot" class="plot"></div></div>
-  </div>
-  <div id="vout"></div>
-</section>
-<section id="s3"><details class="how" open><summary>توضیح این بخش</summary><p>اینجا دما (یا هر کمیت دیگر) در فضای سه‌بعدی تعریف شده است. گرادیان سه مؤلفه دارد و به سمت بیشترین افزایش اشاره می‌کند. صفحه‌ی رنگی، «رویه‌ی هم‌مقدار» است، یعنی همه‌ی نقطه‌هایی که مقدارشان با نقطه‌ی شما برابر است؛ گرادیان همیشه بر آن عمود است. جهت را با سه عدد (a, b, c) می‌دهید و برنامه آن را یکه می‌کند و کسینوس‌های هادی را می‌نویسد.</p></details><details class="how help"><summary>راهنمای نوشتن فرمول و عدد</summary>
-<table><tr><td>ضرب (حتماً ستاره)</td><td>2*x</td></tr><tr><td>تقسیم</td><td>x/2</td></tr><tr><td>توان</td><td>x^2</td></tr>
-<tr><td>جذر</td><td>sqrt(x)</td></tr><tr><td>تابع نمایی (eᵘ)</td><td>exp(u)</td></tr><tr><td>لگاریتم طبیعی</td><td>log(x)</td></tr>
-<tr><td>سینوس / کسینوس</td><td>sin(x) , cos(x)</td></tr><tr><td>عدد پی / قدر مطلق</td><td>pi , Abs(x)</td></tr></table>
-<p>مثال: <b dir="ltr">20 + 60*exp(-(x^2+y^2)/8)</b> یعنی ۲۰ + ۶۰e<sup>−(x²+y²)/8</sup>. مختصات نقطه را در کادرهای عددی بنویسید (اعشار با نقطه یا ممیز فارسی). زیر هر کادر فرمول، پیش‌نمایش ریاضی آن نشان داده می‌شود؛ اگر پیش‌نمایش با چیزی که منظورتان بود فرق داشت، فرمول را اصلاح کنید.</p></details>
-<div class="grid"><div>
-<label for="s3_pre">نمونه</label><select id="s3_pre"></select>
-<label for="s3_f">f(x, y, z)</label><input type="text" id="s3_f">
-<label>نقطه‌ای که می‌خواهید بررسی کنید (x₀, y₀, z₀) <span class="hint">سه عدد: مختصات x و y و z</span></label><div class="three"><input type="number" id="s3_x" step="0.5"><input type="number" id="s3_y" step="0.5"><input type="number" id="s3_z" step="0.5"></div>
-<label>جهت حرکت (a, b, c) <span class="hint">سه عدد دلخواه؛ مثلاً ۱ و ۰ و ۰ یعنی راستای محور x. برنامه خودش آن را یکه می‌کند</span></label><div class="three"><input type="number" id="s3_a" step="0.5"><input type="number" id="s3_b" step="0.5"><input type="number" id="s3_c" step="0.5"></div>
-<label for="s3_R">نیم‌پهنا</label><input type="number" id="s3_R" value="5" min="1">
-<button class="act" id="s3_run">تحلیل</button></div><div><div id="s3_plot" class="plot"></div></div></div><div id="s3_out"></div></section>
-
-<section id="v3"><details class="how" open><summary>توضیح این بخش</summary><p>یک میدان برداری سه‌بعدی (مثل سرعت آب یا میدان الکتریکی) در هر نقطه یک بردار دارد. واگرایی می‌گوید آیا در آن نقطه چشمه یا چاه داریم. چرخش (کرل) یک بردار است: راستایش محور چرخش و اندازه‌اش شدت گرداب است. برگ یا ذره‌ی آزمون از نقطه‌ی شروع با سرعت میدان حرکت می‌کند و مسیرش کشیده می‌شود.</p></details><details class="how help"><summary>راهنمای نوشتن فرمول و عدد</summary>
-<table><tr><td>ضرب (حتماً ستاره)</td><td>2*x</td></tr><tr><td>تقسیم</td><td>x/2</td></tr><tr><td>توان</td><td>x^2</td></tr>
-<tr><td>جذر</td><td>sqrt(x)</td></tr><tr><td>تابع نمایی (eᵘ)</td><td>exp(u)</td></tr><tr><td>لگاریتم طبیعی</td><td>log(x)</td></tr>
-<tr><td>سینوس / کسینوس</td><td>sin(x) , cos(x)</td></tr><tr><td>عدد پی / قدر مطلق</td><td>pi , Abs(x)</td></tr></table>
-<p>مثال: <b dir="ltr">20 + 60*exp(-(x^2+y^2)/8)</b> یعنی ۲۰ + ۶۰e<sup>−(x²+y²)/8</sup>. مختصات نقطه را در کادرهای عددی بنویسید (اعشار با نقطه یا ممیز فارسی). زیر هر کادر فرمول، پیش‌نمایش ریاضی آن نشان داده می‌شود؛ اگر پیش‌نمایش با چیزی که منظورتان بود فرق داشت، فرمول را اصلاح کنید.</p></details>
-<div class="grid"><div>
-<label for="v3_pre">نمونه</label><select id="v3_pre"></select>
-<label for="v3_vx">vₓ</label><input type="text" id="v3_vx"><label for="v3_vy">v_y</label><input type="text" id="v3_vy"><label for="v3_vz">v_z</label><input type="text" id="v3_vz">
-<label>نقطه‌ی شروع <span class="hint">جایی که برگ یا ذره رها می‌شود (x, y, z)</span></label><div class="three"><input type="number" id="v3_px" value="1" step="0.5"><input type="number" id="v3_py" value="0" step="0.5"><input type="number" id="v3_pz" value="0.5" step="0.5"></div>
-<div class="two"><div><label for="v3_T">مدت (s)</label><input type="number" id="v3_T" value="6" min="1"></div><div><label for="v3_R">نیم‌پهنا</label><input type="number" id="v3_R" value="3" min="1"></div></div>
-<button class="act" id="v3_run">تحلیل</button></div><div><div id="v3_plot" class="plot"></div></div></div><div id="v3_out"></div></section>
-
-<section id="m3"><details class="how" open><summary>توضیح این بخش</summary><p>این نسخه‌ی کامل مغناطیس است. هر سیم راست می‌تواند در فضا هر جهتی داشته باشد؛ میدانش B = μ₀I/(2πd) است و جهتش از قاعده‌ی دست راست به دست می‌آید. نیروی وارد بر سیم آزمون F = I L × B است. در بخش دوم، ذره‌ی باردار با سرعت و میدان دلخواه حرکت می‌کند: مؤلفه‌ی عمود بر B دایره می‌سازد و مؤلفه‌ی موازی با B ثابت می‌ماند و نتیجه یک مارپیچ است.</p></details>
-<label for="m3_w">سیم‌ها، هر خط: I، سپس نقطه‌ای روی سیم (x, y, z)، سپس جهت سیم (a, b, c)</label>
-<textarea id="m3_w" rows="3">5, 0, 0, 0, 0, 0, 1</textarea>
-<div class="grid"><div>
-<label>نقطه‌ی مشاهده</label><div class="three"><input type="number" id="m3_px" value="1" step="0.5"><input type="number" id="m3_py" value="0" step="0.5"><input type="number" id="m3_pz" value="0" step="0.5"></div>
-<label for="m3_i2">جریان سیم آزمون (A)</label><input type="number" id="m3_i2" value="2">
-<label>جهت سیم آزمون</label><div class="three"><input type="number" id="m3_wa" value="0" step="0.5"><input type="number" id="m3_wb" value="0" step="0.5"><input type="number" id="m3_wc" value="1" step="0.5"></div>
-<label for="m3_R">طول نمایش سیم‌ها</label><input type="number" id="m3_R" value="3" min="1">
-<button class="act" id="m3_run">تحلیل سیم‌ها</button></div><div><div id="m3_plot" class="plot"></div></div></div><div id="m3_out"></div>
-<h2>ذره‌ی باردار با سرعت و میدان دلخواه</h2>
-<div class="grid"><div>
-<label for="p3_q">q (C)</label><input type="text" id="p3_q" value="1.6e-19"><label for="p3_m">m (kg)</label><input type="text" id="p3_m" value="1.67e-27">
-<label>سرعت (vₓ, v_y, v_z) برحسب m/s</label><div class="three"><input type="text" id="p3_vx" value="1e6"><input type="text" id="p3_vy" value="0"><input type="text" id="p3_vz" value="5e5"></div>
-<label>میدان B (T)</label><div class="three"><input type="text" id="p3_bx" value="0"><input type="text" id="p3_by" value="0"><input type="text" id="p3_bz" value="0.1"></div>
-<button class="act" id="p3_run">شبیه‌سازی</button></div><div><div id="p3_plot" class="plot"></div></div></div><div id="p3_out"></div></section>
-<section id="la"><details class="how" open><summary>توضیح این بخش</summary><p>بردار و ماتریس ابزار پایه‌ی همه‌ی بخش‌های دیگرند. ضرب داخلی نشان می‌دهد دو بردار چقدر هم‌راستایند و ضرب خارجی برداری عمود بر هر دو می‌دهد (مثل جهت نیرو در مغناطیس). ماتریس را می‌توان تانسور مرتبه‌ی دو دید و مقادیر ویژه‌اش جهت‌های اصلی را نشان می‌دهند.</p></details>
-  <h2>بردارهای سه‌بعدی (دستگاه دکارتی)</h2>
-  <div class="two" style="max-width:600px">
-    <div><label for="la_a">a</label><input type="text" id="la_a" value="1, 2, 2"></div>
-    <div><label for="la_b">b</label><input type="text" id="la_b" value="3, 0, 4"></div>
-  </div>
-  <label for="la_m">ماتریس M (سطرها با ; جدا می‌شوند)</label>
-  <input type="text" id="la_m" value="2, 1, 0; 1, 3, 1; 0, 1, 2" style="max-width:600px">
-  <button class="act" id="lrun">محاسبه</button>
-  <div id="lout"></div>
-</section><section id="lp"><details class="how" open><summary>توضیح این بخش</summary><p>لاپلاسین ∇²T نشان می‌دهد دمای یک نقطه با میانگین دمای همسایه‌هایش چقدر فرق دارد. اگر مثبت باشد، نقطه از همسایه‌ها سردتر است و گرم می‌شود؛ اگر منفی باشد، داغ‌تر است و سرد می‌شود. معادله‌ی پخش گرما می‌گوید ∂T/∂t = α∇²T. در این بخش دمای چند نقطه‌ی مشخص را بدهید تا لاپلاسین در t₃ و آهنگ تغییر دمای آن نقطه حساب شود. اگر فرمول دما دارید، لاپلاسین آن را در «میدان اسکالر» یا «گرادیان سه‌بعدی» ببینید.</p></details>
-<h2>لاپلاسین و معادله‌ی گرما از روی دمای چند نقطه</h2>
-<p class="note">دو چیدمان داریم: چهار نقطه روی یک خط (لاپلاسین در t₃ از روی t₂ و t₃ و t₄، و t₁ برای بررسی)، یا سطح دوبعدی با t₃ در مرکز و چهار همسایه‌ی شرق و غرب و شمال و جنوب. مکان‌ها و α را با یک واحد طول بدهید (مثلاً سانتی‌متر و cm²/s).</p>
-<div class="grid"><div>
-<label for="lp_mode">چیدمان نقطه‌ها</label><select id="lp_mode"><option value="line">چهار نقطه روی یک خط (t₃ سومی)</option><option value="cross">سطح: t₃ در مرکز و چهار همسایه</option></select>
-<label for="lp_al">ضریب پخش گرما α (طول² بر ثانیه)</label><input type="text" id="lp_al" value="0.01">
-<div id="lp_line">
-<div class="two"><div><label for="lp_x1">مکان t₁</label><input type="text" id="lp_x1" value="0"></div><div><label for="lp_T1">دمای t₁</label><input type="text" id="lp_T1" value="20"></div></div>
-<div class="two"><div><label for="lp_x2">مکان t₂</label><input type="text" id="lp_x2" value="1"></div><div><label for="lp_T2">دمای t₂</label><input type="text" id="lp_T2" value="26"></div></div>
-<div class="two"><div><label for="lp_x3">مکان t₃</label><input type="text" id="lp_x3" value="2"></div><div><label for="lp_T3">دمای t₃</label><input type="text" id="lp_T3" value="30"></div></div>
-<div class="two"><div><label for="lp_x4">مکان t₄</label><input type="text" id="lp_x4" value="3"></div><div><label for="lp_T4">دمای t₄</label><input type="text" id="lp_T4" value="32"></div></div>
-</div>
-<div id="lp_cross" style="display:none">
-<div class="two"><div><label for="lp_Tc">دمای t₃ (مرکز)</label><input type="text" id="lp_Tc" value="30"></div><div><label for="lp_TE">شرق (x+h)</label><input type="text" id="lp_TE" value="33"></div></div>
-<div class="two"><div><label for="lp_TW">غرب (x−h)</label><input type="text" id="lp_TW" value="29"></div><div><label for="lp_TN">شمال (y+h)</label><input type="text" id="lp_TN" value="32"></div></div>
-<div class="two"><div><label for="lp_TS">جنوب (y−h)</label><input type="text" id="lp_TS" value="28"></div><div></div></div>
-<div class="two"><div><label for="lp_hx">فاصله‌ی شرق و غرب (h<sub>x</sub>)</label><input type="text" id="lp_hx" value="1"></div><div><label for="lp_hy">فاصله‌ی شمال و جنوب (h<sub>y</sub>)</label><input type="text" id="lp_hy" value="1"></div></div>
-</div>
-<button class="act" id="lp_run">محاسبه</button></div><div><div id="lp_plot" class="plot"></div></div></div><div id="lp_out"></div></section>
-<section id="mi"><details class="how" open><summary>توضیح این بخش</summary><p>انتگرال دوگانه مقدار یک کمیت را روی یک ناحیه‌ی صفحه جمع می‌زند. انتگرال سه‌گانه همین کار را در حجم می‌کند، مثلاً جرم یا گرمای کل. انتگرال سطحی مقدار کمیت را روی خود سطح z = g(x, y) جمع می‌زند و ضریب √(1+g<sub>x</sub>²+g<sub>y</sub>²) مساحت واقعی سطح را وارد می‌کند. شار یعنی چه مقدار از میدان برداری F از سطح (به سمت بالا) رد می‌شود. کران y می‌تواند به x وابسته باشد و کران z به x و y. اگر انتگرال‌ده چندجمله‌ای باشد جواب دقیق هم نوشته می‌شود؛ در هر حالت مقدار عددی هم محاسبه می‌شود.</p></details>
-<h2>انتگرال دوگانه، سه‌گانه، سطحی و شار</h2>
-<div class="grid"><div>
-<label for="mi_k">نوع انتگرال</label><select id="mi_k"><option value="vol">حجمی ∭ f dV</option><option value="dbl">دوگانه ∬ f dA</option><option value="surf">سطحی ∬ f dS روی z=g(x,y)</option><option value="flux">شار F·n روی z=g(x,y)</option></select>
-<div data-k="vol dbl surf"><label for="mi_f">f</label><input type="text" id="mi_f"></div>
-<div data-k="flux"><label for="mi_F1">F₁</label><input type="text" id="mi_F1"><label for="mi_F2">F₂</label><input type="text" id="mi_F2"><label for="mi_F3">F₃</label><input type="text" id="mi_F3"></div>
-<div data-k="surf flux"><label for="mi_g">سطح: z = g(x, y)</label><input type="text" id="mi_g"></div>
-<div class="two"><div><label for="mi_a">x از</label><input type="text" id="mi_a"></div><div><label for="mi_b">تا</label><input type="text" id="mi_b"></div></div>
-<div class="two"><div><label for="mi_c">y از (می‌تواند تابع x باشد)</label><input type="text" id="mi_c"></div><div><label for="mi_d">تا</label><input type="text" id="mi_d"></div></div>
-<div data-k="vol" class="two"><div><label for="mi_e">z از (تابع x و y)</label><input type="text" id="mi_e"></div><div><label for="mi_h">تا</label><input type="text" id="mi_h"></div></div>
-<button class="act" id="mi_run">محاسبه</button></div><div><div id="mi_plot" class="plot"></div></div></div><div id="mi_out"></div></section>
-<section id="cas"><details class="how" open><summary>توضیح این بخش</summary><p>عبارت را با دکمه‌ها یا با صفحه‌کلید بنویسید. روی هر دکمه هم علامت ریاضی و هم نام فارسی‌اش آمده است. سپس یکی از عملیات پایین را بزنید؛ برنامه جواب را همراه با مراحل نشان می‌دهد. برای حل معادله، طرف دوم را با علامت = بنویسید.</p></details>
-<input type="text" id="c_expr" dir="ltr" value="x^2*sin(x)" style="font-size:18px">
-<div class="keys" id="c_keys"></div>
-<div><button class="act" data-c="diff">مشتق  d/dx</button><button class="act" data-c="int">انتگرال  ∫</button><button class="act" data-c="solve">حل معادله</button><button class="act" data-c="simp">ساده‌سازی</button><button class="act alt" id="c_bs">⌫ پاک‌کردن یک نویسه</button><button class="act alt" id="c_cl">C پاک‌کردن همه</button></div>
-<div id="c_out"></div></section></main>
-<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script>window.HK={};window.INIT=[];
-const PY = String.raw`import json, numpy as np
-from sympy import symbols, exp, log, diff, simplify, integrate, solve, latex, E
-from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application, convert_xor
-_raw_parse = parse_expr
-_NT = str.maketrans({'×':'*','·':'*','⋅':'*','∙':'*','÷':'/','−':'-','–':'-','٫':'.','،':',','٬':'', **{c:str(i) for i,c in enumerate('۰۱۲۳۴۵۶۷۸۹')}, **{c:str(i) for i,c in enumerate('٠١٢٣٤٥٦٧٨٩')}})
-def parse_expr(s, *a, **k): return _raw_parse(s.translate(_NT) if isinstance(s, str) else s, *a, **k)
-from scipy.optimize import curve_fit
-from scipy.stats import t as tdist
-
-t, k, C0 = symbols('t k C0', positive=True)
-RHS = {0: lambda c: -k, 1: lambda c: -k*c, 2: lambda c: -k*c**2}
-SOL = {0: C0-k*t, 1: C0*exp(-k*t), 2: C0/(1+C0*k*t)}
-HL = {0: C0/(2*k), 1: log(2)/k, 2: 1/(k*C0)}
-F = {0: lambda t,k,c: c-k*t, 1: lambda t,k,c: c*np.exp(-k*t), 2: lambda t,k,c: c/(1+c*k*t)}
-STEPS = {
-1: [("معادله سرعت", r"\frac{dC}{dt}=-kC"), ("جداسازی متغیرها", r"\frac{dC}{C}=-k\,dt"),
-    ("انتگرال دو طرف", r"\ln C=-kt+c"), ("شرط اولیه C(0)=C₀", r"c=\ln C_0"),
-    ("جواب", r"C(t)=C_0\,e^{-kt}"), ("نیمه‌عمر", r"t_{1/2}=\frac{\ln 2}{k}"),
-    ("خطی‌سازی", r"\ln C=\ln C_0-kt\ \Rightarrow\ \text{شیب}=-k")],
-2: [("معادله سرعت", r"\frac{dC}{dt}=-kC^{2}"), ("جداسازی متغیرها", r"\frac{dC}{C^{2}}=-k\,dt"),
-    ("انتگرال دو طرف", r"-\frac{1}{C}=-kt+c"), ("شرط اولیه C(0)=C₀", r"c=-\frac{1}{C_0}"),
-    ("جواب", r"\frac{1}{C}=\frac{1}{C_0}+kt\ \Rightarrow\ C=\frac{C_0}{1+kC_0t}"),
-    ("نیمه‌عمر", r"t_{1/2}=\frac{1}{kC_0}"), ("خطی‌سازی", r"\frac{1}{C}\ \text{بر حسب}\ t:\ \text{شیب}=k")],
-0: [("معادله سرعت", r"\frac{dC}{dt}=-k"), ("انتگرال دو طرف", r"C=-kt+c"),
-    ("شرط اولیه C(0)=C₀", r"c=C_0"), ("جواب", r"C(t)=C_0-kt"),
-    ("نیمه‌عمر", r"t_{1/2}=\frac{C_0}{2k}")]}
-
-def num(x):
-    x = float(x)
-    return x if np.isfinite(x) else None
-
-def solve_model(n):
-    s = SOL[n]
-    ok = (simplify(diff(s, t) - RHS[n](s)) == 0 and simplify(s.subs(t, 0) - C0) == 0
-          and simplify(s.subs(t, HL[n]) - C0/2) == 0)
-    return json.dumps({"steps": [{"title": a, "tex": b} for a, b in STEPS[n]], "ok": bool(ok)})
-
-def curve(n, kv, c0, tmax):
-    tt = np.linspace(0, tmax, 200)
-    cc = np.maximum(F[n](tt, kv, c0), 0)
-    th = {0: c0/(2*kv), 1: np.log(2)/kv, 2: 1/(kv*c0)}[n]
-    return json.dumps({"t": tt.tolist(), "c": cc.tolist(), "half": num(th)})
-
-def fit(js):
-    d = json.loads(js)
-    x = np.array(d["t"], float); y = np.array(d["c"], float)
-    N = len(x); out = {}
-    T = max(x.max() - x.min(), 1e-9)
-    for n in (0, 1, 2):
-        try:
-            if n == 0: k0 = (y[0]-y[-1])/T
-            elif n == 1: k0 = np.log(max(y[0], 1e-9)/max(y[-1], 1e-9))/T
-            else: k0 = (1/max(y[-1], 1e-9) - 1/max(y[0], 1e-9))/T
-            k0 = max(abs(k0), 1e-4)
-            p, cov = curve_fit(F[n], x, y, p0=[k0, y[0]], bounds=([0, 0], [np.inf, np.inf]))
-            res = y - F[n](x, *p)
-            sse = float(np.sum(res**2)); sst = float(np.sum((y-y.mean())**2))
-            se = np.sqrt(np.diag(cov))
-            tq = tdist.ppf(0.975, N-2) if N > 2 else np.nan
-            out[n] = {"k": num(p[0]), "c0": num(p[1]), "se_k": num(se[0]), "se_c0": num(se[1]),
-                      "ci_k": num(tq*se[0]), "ci_c0": num(tq*se[1]),
-                      "r2": num(1-sse/sst) if sst > 0 else None, "rmse": num(np.sqrt(sse/N)),
-                      "aic": num(N*np.log(max(sse, 1e-300)/N) + 4), "res": res.tolist(), "ok": True}
-        except Exception as e:
-            out[n] = {"ok": False, "msg": str(e)}
-    return json.dumps(out)
-
-TR = standard_transformations + (implicit_multiplication_application, convert_xor)
-def cas(op, s):
-    try:
-        x = symbols('x')
-        loc = {'x': x}
-        if '=' in s:
-            l, r = s.split('=', 1)
-            e = parse_expr(l, local_dict=loc, transformations=TR) - parse_expr(r, local_dict=loc, transformations=TR)
-        else:
-            e = parse_expr(s, local_dict=loc, transformations=TR)
-        r = {'diff': lambda: diff(e, x), 'int': lambda: integrate(e, x),
-             'solve': lambda: solve(e, x), 'simp': lambda: simplify(e)}[op]()
-        return json.dumps({"ok": True, "inp": latex(e), "out": latex(r)})
-    except Exception as ex:
-        return json.dumps({"ok": False, "msg": str(ex)})
-import json, numpy as np
-from sympy import symbols, diff, latex, simplify, lambdify, Matrix, sqrt, acos, N, pi
-from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application, convert_xor
-_raw_parse = parse_expr
-_NT = str.maketrans({'×':'*','·':'*','⋅':'*','∙':'*','÷':'/','−':'-','–':'-','٫':'.','،':',','٬':'', **{c:str(i) for i,c in enumerate('۰۱۲۳۴۵۶۷۸۹')}, **{c:str(i) for i,c in enumerate('٠١٢٣٤٥٦٧٨٩')}})
-def parse_expr(s, *a, **k): return _raw_parse(s.translate(_NT) if isinstance(s, str) else s, *a, **k)
-from scipy.integrate import solve_ivp
-
-x, y = symbols('x y', real=True)
-TR = standard_transformations + (implicit_multiplication_application, convert_xor)
-def P(s): return parse_expr(s, local_dict={'x': x, 'y': y}, transformations=TR)
-def g(fn, X, Y): return np.broadcast_to(np.asarray(fn(X, Y), float), np.shape(X)).copy()
-def fin(v): return float(v) if np.isfinite(v) else None
-
-def scalar(js):
-    try:
-        d = json.loads(js); f = P(d['f']); x0, y0, R = d['x0'], d['y0'], d['R']
-        th = np.radians(d['th']); ds = d['ds']
-        fx, fy = diff(f, x), diff(f, y); lap = diff(f, x, 2) + diff(f, y, 2)
-        F, FX, FY, L = [lambdify((x, y), e, 'numpy') for e in (f, fx, fy, lap)]
-        gx, gy = float(g(FX, x0, y0)), float(g(FY, x0, y0))
-        mag = float(np.hypot(gx, gy)); D = gx*np.cos(th) + gy*np.sin(th)
-        phi = float(np.degrees(np.arccos(np.clip(D/mag, -1, 1)))) if mag > 1e-12 else None
-        f0 = float(g(F, x0, y0)); f1 = float(g(F, x0 + ds*np.cos(th), y0 + ds*np.sin(th)))
-        xs = np.linspace(-R, R, 45); X, Y = np.meshgrid(xs, xs)
-        Z = g(F, X, Y)
-        qs = np.linspace(-R*0.9, R*0.9, 9); QX, QY = np.meshgrid(qs, qs)
-        GX, GY = g(FX, QX, QY), g(FY, QX, QY)
-        q = [[float(a), float(b), float(c), float(e)] for a, b, c, e in zip(QX.ravel(), QY.ravel(), GX.ravel(), GY.ravel()) if np.isfinite(c) and np.isfinite(e)]
-        return json.dumps({"ok": True, "f": latex(f), "fx": latex(fx), "fy": latex(fy), "lap": latex(simplify(lap)),
-            "E": latex(-fx) + "\\,,\\ " + latex(-fy), "gx": gx, "gy": gy, "mag": mag, "D": float(D), "phi": phi,
-            "amax": float(np.degrees(np.arctan2(gy, gx)) % 360), "df": f1 - f0, "dpred": float(D*ds),
-            "lapv": fin(g(L, x0, y0)), "xs": xs.tolist(), "Z": [[fin(v) for v in r] for r in Z], "q": q})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-def field(js):
-    try:
-        d = json.loads(js); vx, vy = P(d['vx']), P(d['vy']); x0, y0, R, T = d['x0'], d['y0'], d['R'], d['T']
-        dv = diff(vx, x) + diff(vy, y); cv = diff(vy, x) - diff(vx, y)
-        dvs, cvs = simplify(dv), simplify(cv)
-        VX, VY, DV, CV = [lambdify((x, y), e, 'numpy') for e in (vx, vy, dvs, cvs)]
-        qs = np.linspace(-R*0.9, R*0.9, 11); QX, QY = np.meshgrid(qs, qs)
-        AX, AY = g(VX, QX, QY), g(VY, QX, QY)
-        q = [[float(a), float(b), float(c), float(e)] for a, b, c, e in zip(QX.ravel(), QY.ravel(), AX.ravel(), AY.ravel())
-             if np.isfinite(c) and np.isfinite(e) and abs(c) < 1e6 and abs(e) < 1e6]
-        fun = lambda t, p: [float(g(VX, p[0], p[1])), float(g(VY, p[0], p[1]))]
-        s = solve_ivp(fun, [0, T], [x0, y0], t_eval=np.linspace(0, T, 300), rtol=1e-8, atol=1e-10)
-        tr = [[float(a), float(b)] for a, b in zip(s.y[0], s.y[1]) if np.isfinite(a) and np.isfinite(b) and abs(a) < 10*R and abs(b) < 10*R]
-        return json.dumps({"ok": True, "div": latex(dvs), "curl": latex(cvs), "parts": [latex(diff(vx, x)), latex(diff(vy, y)), latex(diff(vy, x)), latex(diff(vx, y))], "dv": fin(g(DV, x0, y0)), "cv": fin(g(CV, x0, y0)),
-            "divzero": bool(dvs == 0), "curlzero": bool(cvs == 0), "q": q, "tr": tr})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-def lin(js):
-    try:
-        d = json.loads(js)
-        a = Matrix([P(t) for t in d['a'].split(',')]); b = Matrix([P(t) for t in d['b'].split(',')])
-        if len(a) != 3 or len(b) != 3: raise ValueError('هر بردار باید ۳ مؤلفه داشته باشد')
-        M = Matrix([[P(t) for t in r.split(',')] for r in d['M'].split(';')])
-        na, nb = sqrt(a.dot(a)), sqrt(b.dot(b)); out = {"ok": True}
-        out["dot"] = latex(a.dot(b)); out["cross"] = latex(a.cross(b))
-        out["na"] = latex(simplify(na)); out["cosdir"] = latex(Matrix([simplify(c/na) for c in a]).T)
-        out["angle"] = float(N(acos(a.dot(b)/(na*nb))*180/pi)) if na != 0 and nb != 0 else None
-        out["M"] = latex(M)
-        if M.rows == M.cols:
-            out["det"] = latex(M.det()); out["eig"] = latex(list(M.eigenvals().keys()))
-            if M.det() != 0: out["inv"] = latex(M.inv())
-            if M.cols == 3: out["Ma"] = latex(M*a)
-        return json.dumps(out)
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-
-T_ = symbols('t', real=True)
-def P2(s): return parse_expr(s, local_dict={'x': x, 'y': y, 't': T_}, transformations=TR)
-def evl(fn, a): return np.broadcast_to(np.asarray(fn(a), float), np.shape(a)).copy()
-
-def chain(js):
-    try:
-        d = json.loads(js); f = P2(d['f']); xt = P2(d['x']); yt = P2(d['y']); t0, t1 = d['t0'], d['t1']
-        fx, fy = diff(f, x), diff(f, y); sb = {x: xt, y: yt}
-        ch = simplify(fx.subs(sb)*diff(xt, T_) + fy.subs(sb)*diff(yt, T_)); comp = f.subs(sb)
-        ok = bool(simplify(ch - diff(comp, T_)) == 0)
-        C = lambdify(T_, comp, 'numpy'); D = lambdify(T_, ch, 'numpy')
-        ts = np.linspace(t0, t1, 200); mid = t0 + 0.25*(t1-t0); h = 1e-5
-        return json.dumps({"ok": True, "chain": latex(ch), "verified": ok, "ts": ts.tolist(),
-            "T": [fin(v) for v in evl(C, ts)], "D": [fin(v) for v in evl(D, ts)], "mid": mid,
-            "Dmid": float(evl(D, mid)), "num": float((evl(C, mid+h) - evl(C, mid-h))/(2*h))})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-KC = 9e9
-def EV(Q, X, Y):
-    V = 0; Ex = 0; Ey = 0
-    for q, a, b in Q:
-        dx, dy = X - a, Y - b; r = np.maximum(np.hypot(dx, dy), 1e-9)
-        V = V + KC*q*1e-6/r; Ex = Ex + KC*q*1e-6*dx/r**3; Ey = Ey + KC*q*1e-6*dy/r**3
-    return V, Ex, Ey
-
-def elec(js):
-    try:
-        d = json.loads(js); Q = d['Q']; x0, y0, q0, R = d['x0'], d['y0'], d['q0'], d['R']
-        xs = np.linspace(-R, R, 45); X, Y = np.meshgrid(xs, xs); V, _, _ = EV(Q, X, Y)
-        lim = float(np.percentile(np.abs(V), 85)); Z = np.clip(V, -lim, lim)
-        qs = np.linspace(-R*0.9, R*0.9, 11); QX, QY = np.meshgrid(qs, qs); _, Ex, Ey = EV(Q, QX, QY)
-        q = [[float(a), float(b), float(c), float(e)] for a, b, c, e in zip(QX.ravel(), QY.ravel(), Ex.ravel(), Ey.ravel())]
-        V0, ex, ey = EV(Q, x0, y0); h = 1e-5
-        gx = (EV(Q, x0+h, y0)[0] - EV(Q, x0-h, y0)[0])/(2*h); gy = (EV(Q, x0, y0+h)[0] - EV(Q, x0, y0-h)[0])/(2*h)
-        E = float(np.hypot(ex, ey)); err = float(np.hypot(ex+gx, ey+gy)/max(E, 1e-30))
-        return json.dumps({"ok": True, "xs": xs.tolist(), "Z": Z.tolist(), "q": q, "V": float(V0), "ex": float(ex), "ey": float(ey),
-            "E": E, "ang": float(np.degrees(np.arctan2(ey, ex)) % 360), "F": abs(q0)*1e-6*E, "err": err})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-MU = 4e-7*np.pi
-def Bf(W, X, Y):
-    Bx = 0; By = 0
-    for I, a, b in W:
-        dx, dy = X - a, Y - b; k = MU*I/(2*np.pi*np.maximum(dx**2 + dy**2, 1e-12)); Bx = Bx - k*dy; By = By + k*dx
-    return Bx, By
-
-def mag(js):
-    try:
-        d = json.loads(js); W = d['W']; x0, y0, I2, R = d['x0'], d['y0'], d['I2'], d['R']
-        qs = np.linspace(-R*0.9, R*0.9, 11); QX, QY = np.meshgrid(qs, qs); Bx, By = Bf(W, QX, QY)
-        q = [[float(a), float(b), float(c), float(e)] for a, b, c, e in zip(QX.ravel(), QY.ravel(), Bx.ravel(), By.ravel()) if np.isfinite(c) and np.isfinite(e)]
-        bx, by = Bf(W, x0, y0); Rc = R*0.95; th = np.linspace(0, 2*np.pi, 2000, endpoint=False)
-        cx, cy = Rc*np.cos(th), Rc*np.sin(th); cbx, cby = Bf(W, cx, cy)
-        circ = float(np.sum(cbx*(-np.sin(th)) + cby*np.cos(th))*Rc*(2*np.pi/2000))
-        Ienc = sum(I for I, a, b in W if np.hypot(a, b) < Rc)
-        return json.dumps({"ok": True, "q": q, "bx": float(bx), "by": float(by), "B": float(np.hypot(bx, by)),
-            "fx": float(-I2*by), "fy": float(I2*bx), "circ": circ, "mui": float(MU*Ienc)})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-def part(js):
-    try:
-        d = json.loads(js); q, m, v, B = d['q'], d['m'], d['v'], d['B']
-        w = abs(q)*B/m; Tp = 2*np.pi/w; r = m*v/(abs(q)*B)
-        f = lambda t, s: [s[2], s[3], (q/m)*s[3]*B, -(q/m)*s[2]*B]
-        s = solve_ivp(f, [0, 2*Tp], [0, 0, v, 0], t_eval=np.linspace(0, 2*Tp, 400), rtol=1e-10, atol=1e-9)
-        return json.dumps({"ok": True, "x": s.y[0].tolist(), "y": s.y[1].tolist(), "r": float(r), "T": float(Tp),
-            "rn": float((s.y[1].max() - s.y[1].min())/2)})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-z = symbols('z', real=True)
-def P3(s): return parse_expr(s, local_dict={'x': x, 'y': y, 'z': z}, transformations=TR)
-def g3(fn, a, b, c): return np.broadcast_to(np.asarray(fn(a, b, c), float), np.shape(a)).copy()
-
-def scalar3(js):
-    try:
-        d = json.loads(js); f = P3(d['f']); p = d['p']; u = np.array(d['u'], float); R = d['R']
-        if np.linalg.norm(u) < 1e-12: raise ValueError('بردار جهت نباید صفر باشد')
-        u = u/np.linalg.norm(u); S = (x, y, z)
-        gr = [diff(f, s) for s in S]; lap = simplify(sum(diff(f, s, 2) for s in S))
-        Fn = lambdify(S, f, 'numpy'); G = [lambdify(S, e, 'numpy') for e in gr]
-        gv = np.array([float(g3(e, *p)) for e in G]); f0 = float(g3(Fn, *p))
-        mag = float(np.linalg.norm(gv)); D = float(gv@u)
-        phi = float(np.degrees(np.arccos(np.clip(D/mag, -1, 1)))) if mag > 1e-12 else None
-        xs = np.linspace(-R, R, 13); X, Y, Z = np.meshgrid(xs, xs, xs, indexing='ij'); V = g3(Fn, X, Y, Z); V = np.where(np.isfinite(V), V, f0)
-        return json.dumps({"ok": True, "f": latex(f), "gr": [latex(e) for e in gr], "lap": latex(lap), "gv": gv.tolist(),
-            "mag": mag, "D": D, "phi": phi, "u": u.tolist(), "f0": f0, "cg": (gv/mag).tolist() if mag > 1e-12 else None,
-            "lapv": fin(float(g3(lambdify(S, lap, 'numpy'), *p))),
-            "X": X.ravel().tolist(), "Y": Y.ravel().tolist(), "Z": Z.ravel().tolist(), "V": V.ravel().tolist()})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-def field3(js):
-    try:
-        d = json.loads(js); V3 = [P3(d['vx']), P3(d['vy']), P3(d['vz'])]; p = d['p']; R = d['R']; T = d['T']; S = (x, y, z)
-        J = [[diff(V3[i], S[j]) for j in range(3)] for i in range(3)]
-        dv = simplify(J[0][0] + J[1][1] + J[2][2])
-        cu = [simplify(J[2][1] - J[1][2]), simplify(J[0][2] - J[2][0]), simplify(J[1][0] - J[0][1])]
-        Fv = [lambdify(S, e, 'numpy') for e in V3]
-        val = lambda e: fin(g3(lambdify(S, e, 'numpy'), *p))
-        qs = np.linspace(-R*0.8, R*0.8, 5); X, Y, Z = np.meshgrid(qs, qs, qs, indexing='ij'); W = [g3(fn, X, Y, Z) for fn in Fv]
-        ok = np.all([np.isfinite(w) & (np.abs(w) < 1e6) for w in W], axis=0)
-        fun = lambda t, s: [float(g3(fn, s[0], s[1], s[2])) for fn in Fv]
-        s = solve_ivp(fun, [0, T], p, t_eval=np.linspace(0, T, 300), rtol=1e-8, atol=1e-10)
-        tr = [[float(a), float(b), float(c)] for a, b, c in zip(s.y[0], s.y[1], s.y[2]) if np.isfinite([a, b, c]).all() and max(abs(a), abs(b), abs(c)) < 10*R]
-        return json.dumps({"ok": True, "J": [[latex(e) for e in r] for r in J], "div": latex(dv), "curl": [latex(e) for e in cu],
-            "dv": val(dv), "cv": [val(e) for e in cu], "divzero": bool(dv == 0), "curlzero": all(e == 0 for e in cu),
-            "cone": [X[ok].tolist(), Y[ok].tolist(), Z[ok].tolist(), W[0][ok].tolist(), W[1][ok].tolist(), W[2][ok].tolist()], "tr": tr})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-def mag3(js):
-    try:
-        d = json.loads(js); p = np.array(d['p'], float); R = d['R']; B = np.zeros(3); segs = []
-        for I, a, b, c, ux, uy, uz in d['W']:
-            u = np.array([ux, uy, uz], float); u = u/np.linalg.norm(u); P0 = np.array([a, b, c], float)
-            cr = np.cross(u, p - P0); d2 = float(cr@cr)
-            if d2 < 1e-12: raise ValueError('نقطه روی سیم قرار دارد')
-            B = B + MU*I*cr/(2*np.pi*d2); segs.append([(P0 - R*u).tolist(), (P0 + R*u).tolist()])
-        w = np.array(d['w'], float); w = w/np.linalg.norm(w); F = d['I2']*np.cross(w, B)
-        return json.dumps({"ok": True, "B": B.tolist(), "Bm": float(np.linalg.norm(B)), "F": F.tolist(), "Fm": float(np.linalg.norm(F)), "segs": segs})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-def part3(js):
-    try:
-        d = json.loads(js); q, m = d['q'], d['m']; v = np.array(d['v'], float); Bv = np.array(d['B'], float)
-        Bm = float(np.linalg.norm(Bv)); bh = Bv/Bm; Tp = 2*np.pi*m/(abs(q)*Bm)
-        vpar = float(v@bh); vperp = float(np.linalg.norm(v - vpar*bh)); r = m*vperp/(abs(q)*Bm)
-        f = lambda t, s: list(s[3:]) + list((q/m)*np.cross(s[3:], Bv))
-        s = solve_ivp(f, [0, 2*Tp], [0, 0, 0, *v], t_eval=np.linspace(0, 2*Tp, 500), rtol=1e-10, atol=1e-9)
-        sp = np.linalg.norm(s.y[3:], axis=0)
-        return json.dumps({"ok": True, "p": s.y[:3].tolist(), "r": float(r), "T": float(Tp), "vpar": vpar, "vperp": vperp,
-            "pitch": abs(vpar)*float(Tp), "dv": float(abs(sp[-1] - sp[0])/sp[0])})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-from sympy import Add, Poly, factor
-def cas2(js):
-    try:
-        d = json.loads(js); op, s = d['op'], d['s']
-        if '=' in s: l, r = s.split('=', 1); e = P(l) - P(r)
-        else: e = P(s)
-        st = []; T = lambda a: latex(a)
-        if op in ('diff', 'int'):
-            fn = (lambda a: diff(a, x)) if op == 'diff' else (lambda a: integrate(a, x))
-            head = "\\frac{d}{dx}" if op == 'diff' else "\\int"; tail = "" if op == 'diff' else "\\,dx"
-            ts = Add.make_args(e)
-            if len(ts) > 1: st.append(["قاعده‌ی جمع: از هر جمله جدا " + ("مشتق" if op == 'diff' else "انتگرال") + " می‌گیریم", ""])
-            for a in ts: st.append(["جمله", head + "\\left(" + T(a) + "\\right)" + tail + "=" + T(fn(a))])
-            res = fn(e); out = T(res) + ("" if op == 'diff' else "+C")
-        elif op == 'solve':
-            res = solve(e, x); pl = Poly(e, x) if e.is_polynomial(x) else None
-            if pl is not None and pl.degree() == 2:
-                a, b, c = pl.all_coeffs(); st.append(["ضرایب ax²+bx+c=0", "a=" + T(a) + ",\\ b=" + T(b) + ",\\ c=" + T(c)])
-                st.append(["دلتا", "\\Delta=b^2-4ac=" + T(b**2 - 4*a*c)])
-                st.append(["فرمول ریشه‌ها", "x=\\frac{-b\\pm\\sqrt{\\Delta}}{2a}"])
-            else: st.append(["تجزیه", T(factor(e)) + "=0"])
-            out = "x\\in" + T(res)
-        else:
-            res = simplify(e); out = T(res); st.append(["ساده‌سازی", T(e) + "\\ \\Rightarrow\\ " + T(res)])
-        return json.dumps({"ok": True, "inp": T(e), "steps": st, "out": out})
-    except Exception as ex:
-        return json.dumps({"ok": False, "msg": str(ex)})
-
-def prev(s):
-    try:
-        e = parse_expr(s, local_dict={'x': x, 'y': y, 'z': z, 't': T_}, transformations=TR)
-        return json.dumps({"ok": True, "tex": latex(e)})
-    except Exception:
-        return json.dumps({"ok": False})
-
-
-def _d2(P, V):
-    return 2*sum(V[i]/np.prod([P[i]-P[j] for j in range(3) if j != i]) for i in range(3))
-
-def heat(js):
-    try:
-        d = json.loads(js); al = float(d['alpha']); T = [float(v) for v in d['T']]
-        if d['mode'] == 'line':
-            X = [float(v) for v in d['x']]
-            if len(set(X)) < 4:
-                return json.dumps({"ok": False, "msg": "مکان چهار نقطه باید با هم فرق داشته باشد"})
-            l3 = _d2(X[1:4], T[1:4])
-            c = np.polyfit(X, T, 3)
-            l4 = float(np.polyval(np.polyder(c, 2), X[2])); g = float(np.polyval(np.polyder(c, 1), X[2]))
-            xs = np.linspace(min(X), max(X), 80)
-            return json.dumps({"ok": True, "mode": "line", "lap": float(l3), "lap4": l4, "grad": g, "rate": al*float(l3),
-                "x": X, "T": T, "xs": xs.tolist(), "ys": np.polyval(c, xs).tolist()})
-        Tc, TE, TW, TN, TS = T; hx = float(d['hx']); hy = float(d['hy'])
-        if hx <= 0 or hy <= 0:
-            return json.dumps({"ok": False, "msg": "فاصله‌ها باید مثبت باشند"})
-        lx = (TE - 2*Tc + TW)/hx**2; ly = (TN - 2*Tc + TS)/hy**2
-        return json.dumps({"ok": True, "mode": "cross", "lap": lx + ly, "lx": lx, "ly": ly, "rate": al*(lx + ly),
-            "gx": (TE - TW)/(2*hx), "gy": (TN - TS)/(2*hy), "T": T, "hx": hx, "hy": hy})
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-
-def multi(js):
-    try:
-        from sympy import Integral, sqrt, integrate, diff, latex, lambdify
-        from scipy.integrate import dblquad, tplquad
-        d = json.loads(js); kind = d['kind']
-        loc = {'x': x, 'y': y, 'z': z}
-        Pm = lambda s: parse_expr(s, local_dict=loc, transformations=TR)
-        a, b, c, dd = Pm(d['a']), Pm(d['b']), Pm(d['c']), Pm(d['d'])
-        def mk(expr, vs):
-            fn = lambdify(vs, expr, 'numpy')
-            return lambda *q: float(fn(*q))
-        g = None
-        if kind == 'vol':
-            integrand = Pm(d['f']); e, h = Pm(d['e']), Pm(d['h'])
-            lims = [(z, e, h), (y, c, dd), (x, a, b)]
-        elif kind == 'dbl':
-            integrand = Pm(d['f']); lims = [(y, c, dd), (x, a, b)]
-        else:
-            g = Pm(d['g']); gx, gy = diff(g, x), diff(g, y)
-            if kind == 'surf':
-                integrand = Pm(d['f']).subs(z, g)*sqrt(1 + gx**2 + gy**2)
-            else:
-                F1, F2, F3 = Pm(d['F1']), Pm(d['F2']), Pm(d['F3'])
-                integrand = (-F1*gx - F2*gy + F3).subs(z, g)
-            lims = [(y, c, dd), (x, a, b)]
-        af, bf = float(a), float(b)
-        if kind == 'vol':
-            val, err = tplquad(mk(integrand, (z, y, x)), af, bf, mk(c, (x,)), mk(dd, (x,)), mk(e, (x, y)), mk(h, (x, y)))
-        else:
-            val, err = dblquad(mk(integrand, (y, x)), af, bf, mk(c, (x,)), mk(dd, (x,)))
-        exact = None; chk = None
-        if integrand.is_polynomial(x, y, z):
-            r = integrate(integrand, *lims)
-            if not r.has(Integral):
-                exact = latex(simplify(r)); chk = bool(abs(float(r) - val) < 1e-6*(1 + abs(val)))
-        out = {"ok": True, "kind": kind, "val": float(val), "err": float(err), "exact": exact, "chk": chk, "integrand": latex(integrand)}
-        if kind != 'vol':
-            n = 26; U = np.linspace(0, 1, n); xs = np.linspace(af, bf, n)
-            cf, df = mk(c, (x,)), mk(dd, (x,))
-            Xg = np.zeros((n, n)); Yg = np.zeros((n, n))
-            for i, xv in enumerate(xs):
-                lo, hi = cf(xv), df(xv); Xg[i, :] = xv; Yg[i, :] = lo + (hi - lo)*U
-            fz = lambdify((x, y), g if g is not None else integrand, 'numpy')
-            Zg = np.broadcast_to(np.asarray(fz(Xg, Yg), float), Xg.shape)
-            out["X"] = Xg.tolist(); out["Y"] = Yg.tolist(); out["Z"] = [[fin(v) for v in row] for row in Zg]
-        return json.dumps(out)
-    except Exception as e:
-        return json.dumps({"ok": False, "msg": str(e)})
-`;
-(function(){
-
-const $ = id => document.getElementById(id);
-const NAMES = {0: 'مرتبه صفر', 1: 'مرتبه اول', 2: 'مرتبه دوم'};
-const fa = (v, d = 4) => v == null ? '—' : Number(v).toLocaleString('fa-IR', {maximumSignificantDigits: d});
-const norm = s => s.replace(/[۰-۹]/g, c => '۰۱۲۳۴۵۶۷۸۹'.indexOf(c)).replace(/[٠-٩]/g, c => '٠١٢٣٤٥٦٧٨٩'.indexOf(c))
-  .replace(/٫/g, '.').replace(/[،؛]/g, ',').replace(/−/g, '-');
-const tex = (el, s, d = true) => katex.render(s, el, {displayMode: d, throwOnError: false});
-let py, expData = null, anim;
-
-const call = (fn, ...a) => JSON.parse(py.globals.get(fn)(...a));
-const P = () => ({n: +$('model').value, k: +$('k').value, c0: +$('c0').value, tm: +$('tm').value});
-const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-const lay = (xt, yt) => ({margin: {t: 10, r: 10, b: 45, l: 55}, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
-  font: {family: 'Vazirmatn, Tahoma', color: css('--ink')}, xaxis: {title: xt, gridcolor: css('--line')}, yaxis: {title: yt, gridcolor: css('--line')}, showlegend: true,
-  legend: {orientation: 'h', y: 1.12}});
-
-function draw(upTo) {
-  const {n, k, c0, tm} = P();
-  const d = call('curve', n, k, c0, tm);
-  const m = upTo ? upTo : d.t.length;
-  const tr = [{x: d.t.slice(0, m), y: d.c.slice(0, m), mode: 'lines', name: 'مدل', line: {color: css('--acc'), width: 3}}];
-  if (expData) tr.push({x: expData.t, y: expData.c, mode: 'markers', name: 'داده آزمایشگاهی', marker: {color: css('--acc2'), size: 9}});
-  const L = lay('زمان (s)', 'غلظت (mol/L)');
-  L.xaxis.range = [0, tm]; L.yaxis.range = [0, Math.max(c0, ...(expData ? expData.c : [0])) * 1.08];
-  if (d.half && d.half <= tm) L.shapes = [{type: 'line', x0: d.half, x1: d.half, y0: 0, y1: 1, yref: 'paper', line: {dash: 'dot', color: css('--mut')}}];
-  Plotly.react('plot', tr, L, {displayModeBar: false, responsive: true});
-  $('half').textContent = 'نیمه‌عمر: ' + fa(d.half) + ' ثانیه';
-}
-
-function sliders() {
-  $('kv').textContent = fa($('k').value); $('c0v').textContent = fa($('c0').value); $('tmv').textContent = fa($('tm').value);
-  cancelAnimationFrame(anim); draw();
-}
-
-function steps() {
-  const r = call('solve_model', +$('model').value);
-  $('steps').innerHTML = '';
-  r.steps.forEach(s => {
-    const row = document.createElement('div'); row.className = 'step';
-    row.innerHTML = '<span></span><div></div>'; row.firstChild.textContent = s.title;
-    tex(row.lastChild, s.tex, false); $('steps').appendChild(row);
-  });
-  $('vbadge').innerHTML = r.ok ? '<span class="badge ok">✓ جواب با SymPy تأیید شد</span>' : '<span class="badge bad">✗ تأیید نشد</span>';
-}
-
-function play() {
-  cancelAnimationFrame(anim); let i = 2;
-  const step = () => { draw(i); i += 3; if (i <= 200) anim = requestAnimationFrame(step); else draw(); };
-  step();
-}
-
-function parseData() {
-  const rows = norm($('data').value).split('\n').map(l => l.trim().split(/[,\s;\t]+/).map(Number)).filter(r => r.length >= 2 && r.every(Number.isFinite));
-  return {t: rows.map(r => r[0]), c: rows.map(r => r[1])};
-}
-
-function doFit() {
-  const d = parseData(), out = $('fitout');
-  if (d.t.length < 3) { out.innerHTML = '<p class="err">حداقل ۳ نقطه با قالب «زمان، غلظت» لازم است.</p>'; return; }
-  expData = d;
-  const r = call('fit', JSON.stringify(d));
-  const ok = [0, 1, 2].filter(n => r[n].ok && r[n].aic != null);
-  const best = ok.length ? ok.reduce((a, b) => r[a].aic <= r[b].aic ? a : b) : null;
-  let h = '<h2>مقایسه مدل‌ها</h2><table><tr><th>مدل</th><th>k</th><th>C₀</th><th>R²</th><th>RMSE</th><th>AIC</th></tr>';
-  [1, 2, 0].forEach(n => {
-    const x = r[n];
-    h += x.ok ? `<tr class="${n === best ? 'best' : ''}"><td>${NAMES[n]}${n === best ? ' (بهترین)' : ''}</td>
-      <td class="num">${fa(x.k)} ± ${fa(x.ci_k, 2)}</td><td class="num">${fa(x.c0)} ± ${fa(x.ci_c0, 2)}</td>
-      <td>${fa(x.r2, 5)}</td><td>${fa(x.rmse, 3)}</td><td>${fa(x.aic, 4)}</td></tr>`
-      : `<tr><td>${NAMES[n]}</td><td colspan="5" class="err">برازش همگرا نشد</td></tr>`;
-  });
-  out.innerHTML = h + '</table><p class="note">± یعنی بازه اطمینان ۹۵٪ با توزیع t. AIC کمتر یعنی مدل بهتر؛ با داده کم یا نویزی به تنهایی نتیجه‌گیری نکنید.</p>';
-  if (best != null) {
-    $('model').value = best; $('k').value = Math.min(2, r[best].k); $('c0').value = Math.min(5, r[best].c0);
-    $('tm').value = Math.min(100, Math.ceil(Math.max(...d.t) * 1.1));
-    steps(); sliders();
-    const L = lay('زمان (s)', 'باقیمانده'); L.title = {text: 'باقیمانده‌های مدل ' + NAMES[best], font: {size: 13}};
-    Plotly.react('res', [{x: d.t, y: r[best].res, type: 'bar', marker: {color: css('--acc2')}, name: 'باقیمانده'}], L, {displayModeBar: false, responsive: true});
-  }
-}
-
-function runCas(op) {
-  const o = $('casout'), s = norm($('expr').value);
-  if (!s.trim()) { o.innerHTML = '<span class="err">یک عبارت بنویسید.</span>'; return; }
-  const r = call('cas', op, s);
-  if (!r.ok) { o.innerHTML = '<span class="err">عبارت قابل فهم نبود. نمونه: x^2*sin(x). جزئیات: </span><code></code>'; o.lastChild.textContent = r.msg; return; }
-  o.innerHTML = '<div></div><div></div>';
-  tex(o.children[0], 'f(x)=' + r.inp);
-  tex(o.children[1], {diff: "f'(x)=", int: '\\int f\\,dx=', solve: 'x=', simp: '\\text{ساده‌شده}:\\ '}[op] + r.out + (op === 'int' ? '+C' : ''));
-}
-
-
-['k', 'c0', 'tm'].forEach(i => $(i).oninput = () => py && sliders());
-$('model').onchange = () => py && (steps(), sliders());
-$('play').onclick = () => py && play();
-$('fit').onclick = () => py && doFit();
-$('sample').onclick = () => { $('data').value = '0, 1.00\n2, 0.75\n4, 0.54\n6, 0.42\n8, 0.29\n10, 0.23\n12, 0.16\n14, 0.13\n16, 0.09\n18, 0.06\n20, 0.05'; };
-document.querySelectorAll('[data-op]').forEach(b => b.onclick = () => py && runCas(b.dataset.op));
-$('kv').textContent = fa(0.15); $('c0v').textContent = fa(1); $('tmv').textContent = fa(20);
-
-
-HK.kin=()=>{steps();sliders();};INIT.push(p=>{py=p});})();
-(function(){
-
-const $ = id => document.getElementById(id);
-const norm = s => s.replace(/[۰-۹]/g, c => '۰۱۲۳۴۵۶۷۸۹'.indexOf(c)).replace(/[٠-٩]/g, c => '٠١٢٣٤٥٦٧٨٩'.indexOf(c)).replace(/٫/g, '.').replace(/[،؛]/g, m => m === '،' ? ',' : ';').replace(/−/g, '-');
-const fa = (v, d = 4) => v == null ? '—' : Number(v).toLocaleString('fa-IR', {maximumSignificantDigits: d});
-const tex = (el, s, d = false) => katex.render(s, el, {displayMode: d, throwOnError: false});
-const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-let py;
-const call = (fn, o) => JSON.parse(py.globals.get(fn)(JSON.stringify(o)));
-const num = id => +norm($(id).value);
-const row = (box, title, t) => { const r = document.createElement('div'); r.className = 'row'; r.innerHTML = '<span></span><div></div>'; r.firstChild.textContent = title; tex(r.lastChild, t); box.appendChild(r); };
-const say = (box, text) => { const p = document.createElement('div'); p.className = 'say'; p.textContent = text; box.appendChild(p); };
-const fail = (box, r) => { box.innerHTML = '<p class="err">عبارت قابل پردازش نبود. مثال: 20 + 60*exp(-(x^2+y^2)/8). جزئیات: </p>'; box.firstChild.append(r.msg); };
-const arrow = (x, y, dx, dy, c, w = 1.5) => ({x: x + dx, y: y + dy, ax: x, ay: y, xref: 'x', yref: 'y', axref: 'x', ayref: 'y', showarrow: true, arrowhead: 2, arrowsize: 1, arrowwidth: w, arrowcolor: c, text: ''});
-const quiver = (q, len, c) => q.map(([x, y, a, b]) => { const m = Math.hypot(a, b); return m > 1e-12 ? arrow(x, y, a / m * len, b / m * len, c, 1) : null; }).filter(Boolean);
-const lay = R => ({margin: {t: 10, r: 10, b: 40, l: 45}, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: {family: 'Vazirmatn, Tahoma', color: css('--ink')},
-  xaxis: {title: 'x', range: [-R, R], gridcolor: css('--line')}, yaxis: {title: 'y', range: [-R, R], scaleanchor: 'x', gridcolor: css('--line')}, showlegend: false});
-
-const SP = [['بخاری: دمای اتاق', '20 + 60*exp(-(x^2+y^2)/8)', 2, 1], ['پتانسیل الکتریکی بار نقطه‌ای (kq=9)', '9/sqrt(x^2+y^2)', 1, 1], ['زین اسبی', 'x^2 - y^2', 1, 1]];
-const VP = [['چشمه (فواره)', 'x', 'y', 1, 0], ['چاه', '-x', '-y', 1, 0], ['گرداب', '-y', 'x', 1, 0],
-  ['فواره در استخر (چشمه + چرخش)', '(x - y)/(x^2+y^2+1)', '(x + y)/(x^2+y^2+1)', 1, 0.5],
-  ['میدان الکتریکی بار خطی (دوبعدی)', 'x/(x^2+y^2)', 'y/(x^2+y^2)', 1, 1],
-  ['میدان مغناطیسی سیم راست', '-y/(x^2+y^2)', 'x/(x^2+y^2)', 1, 0]];
-function fill(sel, list, apply) {
-  list.forEach((p, i) => sel.add(new Option(p[0], i)));
-  sel.onchange = () => { apply(list[sel.value]); }; apply(list[0]);
-}
-
-function runScalar() {
-  const o = $('sout'); o.innerHTML = '';
-  const R = num('sR'), x0 = num('sx'), y0 = num('sy'), th = num('sth'), ds = num('sds');
-  const r = call('scalar', {f: norm($('sf').value), x0, y0, R, th, ds});
-  if (!r.ok) return fail(o, r);
-  const rad = th * Math.PI / 180, ux = Math.cos(rad), uy = Math.sin(rad), L = R * 0.28;
-  const ann = quiver(r.q, R / 5 * 0.7, css('--mut'));
-  ann.push(arrow(x0, y0, ux * L, uy * L, css('--acc'), 3));
-  if (r.mag > 1e-9) ann.push(arrow(x0, y0, r.gx / r.mag * L, r.gy / r.mag * L, css('--acc2'), 3));
-  const L2 = lay(R); L2.annotations = ann;
-  Plotly.react('splot', [{type: 'contour', x: r.xs, y: r.xs, z: r.Z, colorscale: 'YlOrRd', line: {width: 0.5}, colorbar: {thickness: 10}},
-    {type: 'scatter', x: [x0], y: [y0], mode: 'markers', marker: {size: 9, color: css('--ink')}}], L2, {displayModeBar: false, responsive: true});
-  tex(o.appendChild(document.createElement('div')), '\\color{teal}\\text{سبز-آبی: جهت انتخابی}\\quad \\color{#b7791f}\\text{کهربایی: جهت گرادیان}', false);
-  row(o, 'تابع', 'f=' + r.f);
-  row(o, 'گرادیان (مؤلفه‌ها)', '\\nabla f=\\left(' + r.fx + ',\\ ' + r.fy + '\\right)');
-  row(o, 'گرادیان در نقطه', '\\nabla f(x_0,y_0)=(' + r.gx.toPrecision(4) + ',\\ ' + r.gy.toPrecision(4) + '),\\ |\\nabla f|=' + r.mag.toPrecision(4));
-  row(o, 'کسینوس‌های هادی جهت', '(\\cos\\theta,\\cos\\beta)=(' + ux.toFixed(4) + ',\\ ' + uy.toFixed(4) + ')');
-  row(o, 'مشتق جهتی', 'D_uf=\\nabla f\\cdot\\hat u=' + r.D.toPrecision(4) + (r.phi != null ? ',\\ \\varphi=' + r.phi.toFixed(1) + '^\\circ' : ''));
-  row(o, 'دیفرانسیل در برابر تغییر واقعی', 'df\\approx f_x\\,dx+f_y\\,dy=' + r.dpred.toPrecision(4) + '\\quad \\Delta f=' + r.df.toPrecision(4));
-  row(o, 'لاپلاسین', '\\nabla^2 f=' + r.lap + (r.lapv != null ? '\\ \\Rightarrow\\ ' + r.lapv.toPrecision(4) : ''));
-  row(o, 'اگر f پتانسیل V باشد', '\\vec E=-\\nabla V=\\left(' + r.E + '\\right)');
-  const hh = document.createElement('h2'); hh.textContent = 'مراحل حل'; o.appendChild(hh);
-  row(o, '۱) مشتق‌های جزئی', 'f_x=' + r.fx + ',\\ \\ f_y=' + r.fy);
-  row(o, '۲) جای‌گذاری نقطه', 'f_x=' + r.gx.toPrecision(4) + ',\\ \\ f_y=' + r.gy.toPrecision(4));
-  row(o, '۳) بردار یکه‌ی جهت', '\\hat u=(\\cos ' + th + '^\\circ,\\ \\sin ' + th + '^\\circ)=(' + ux.toFixed(4) + ',\\ ' + uy.toFixed(4) + ')');
-  row(o, '۴) ضرب داخلی', 'D=(' + r.gx.toPrecision(4) + ')(' + ux.toFixed(4) + ')+(' + r.gy.toPrecision(4) + ')(' + uy.toFixed(4) + ')=' + r.D.toPrecision(4));
-  const eps = 1e-9 * Math.max(1, r.mag);
-  let t;
-  if (r.mag < 1e-9) t = 'گرادیان در این نقطه صفر است: در هیچ جهتی تغییر مرتبه اول وجود ندارد (مثلاً مرکز بخاری یا نقطه‌ی تعادل).';
-  else if (Math.abs(r.D) < eps) t = 'در این جهت تغییری نمی‌کند: جهت بر گرادیان عمود است، یعنی در راستای خط هم‌مقدار قرار دارید (D = |∇f|·cosφ و cosφ = ۰).';
-  else t = (r.D > 0 ? 'در این جهت افزایش می‌یابد' : 'در این جهت کاهش می‌یابد') + ' (زاویه‌ی جهت با گرادیان ' + fa(r.phi, 3) + ' درجه است و D = |∇f|·cosφ). ';
-  if (r.mag >= 1e-9) t += ' بیشترین افزایش در جهت زاویه‌ی ' + fa(r.amax, 4) + ' درجه (جهت گرادیان) با آهنگ ' + fa(r.mag) + ' است و بیشترین کاهش در جهت مخالف آن.';
-  say(o, t);
-}
-
-function runField() {
-  const o = $('vout'); o.innerHTML = '';
-  const R = num('vR'), x0 = num('vx0'), y0 = num('vy0');
-  const r = call('field', {vx: norm($('vx').value), vy: norm($('vy').value), x0, y0, R, T: num('vT')});
-  if (!r.ok) return fail(o, r);
-  const L2 = lay(R); L2.annotations = quiver(r.q, R / 6, css('--mut'));
-  Plotly.react('vplot', [{type: 'scatter', x: r.tr.map(p => p[0]), y: r.tr.map(p => p[1]), mode: 'lines', line: {color: css('--acc'), width: 3}},
-    {type: 'scatter', x: [x0], y: [y0], mode: 'markers', marker: {size: 11, color: css('--acc2')}}], L2, {displayModeBar: false, responsive: true});
-  row(o, 'واگرایی', '\\nabla\\cdot\\vec v=' + r.div + (r.dv != null ? '\\ \\Rightarrow\\ ' + r.dv.toPrecision(4) : ''));
-  row(o, 'چرخش (کرل، مؤلفه z)', '(\\nabla\\times\\vec v)_z=' + r.curl + (r.cv != null ? '\\ \\Rightarrow\\ ' + r.cv.toPrecision(4) : ''));
-  const hh = document.createElement('h2'); hh.textContent = 'مراحل حل'; o.appendChild(hh);
-  row(o, '۱) مشتق‌های لازم', '\\partial_x v_x=' + r.parts[0] + ',\\ \\ \\partial_y v_y=' + r.parts[1] + ',\\ \\ \\partial_x v_y=' + r.parts[2] + ',\\ \\ \\partial_y v_x=' + r.parts[3]);
-  row(o, '۲) واگرایی', '\\partial_x v_x+\\partial_y v_y=(' + r.parts[0] + ')+(' + r.parts[1] + ')=' + r.div);
-  row(o, '۳) چرخش', '\\partial_x v_y-\\partial_y v_x=(' + r.parts[2] + ')-(' + r.parts[3] + ')=' + r.curl);
-  const e = 1e-9, parts = [];
-  if (r.dv != null && r.dv > e) parts.push('چشمه (واگرایی مثبت: جریان از اطراف دور می‌شود)');
-  if (r.dv != null && r.dv < -e) parts.push('چاه (واگرایی منفی: جریان جمع می‌شود)');
-  if (r.cv != null && Math.abs(r.cv) > e) parts.push('گرداب (' + (r.cv > 0 ? 'چرخش پادساعتگرد' : 'چرخش ساعتگرد') + ')');
-  let t = 'در نقطه‌ی (' + fa(x0) + ', ' + fa(y0) + '): ' + (parts.length ? parts.join(' + ') : 'نه چشمه است نه چاه و چرخشی هم ندارد.');
-  if (r.divzero) t += ' واگرایی همه‌جا صفر است؛ چشمه و چاهی در میدان نیست (تراکم‌ناپذیر). اگر v میدان مغناطیسی باشد، این همان ∇·B = ۰ است.';
-  say(o, t);
-  if (r.tr.length > 1) {
-    const a = r.tr[0], b = r.tr[r.tr.length - 1];
-    say(o, 'مسیر برگ (که با سرعت میدان حرکت می‌کند): از فاصله‌ی ' + fa(Math.hypot(a[0], a[1]), 3) + ' تا فاصله‌ی ' + fa(Math.hypot(b[0], b[1]), 3) + ' از مبدأ. ' +
-      (Math.hypot(b[0], b[1]) > Math.hypot(a[0], a[1]) * 1.05 ? 'برگ از مرکز دور می‌شود.' : Math.hypot(b[0], b[1]) < Math.hypot(a[0], a[1]) * 0.95 ? 'برگ به مرکز نزدیک می‌شود.' : 'برگ تقریباً روی مدار می‌ماند.'));
-  } else say(o, 'حل مسیر ادامه نیافت (احتمالاً نزدیک نقطه‌ی تکین مثل مبدأ). نقطه‌ی شروع را عوض کنید.');
-}
-
-function runLin() {
-  const o = $('lout'); o.innerHTML = '';
-  const r = call('lin', {a: norm($('la_a').value), b: norm($('la_b').value), M: norm($('la_m').value)});
-  if (!r.ok) { o.innerHTML = '<p class="err"></p>'; o.firstChild.textContent = 'ورودی نامعتبر: ' + r.msg; return; }
-  row(o, 'اندازه‌ی a', '|\\vec a|=' + r.na);
-  row(o, 'کسینوس‌های هادی a', '(\\cos\\alpha,\\cos\\beta,\\cos\\gamma)=' + r.cosdir);
-  row(o, 'ضرب داخلی', '\\vec a\\cdot\\vec b=' + r.dot);
-  row(o, 'زاویه بین a و b', '\\theta=' + (r.angle == null ? '—' : r.angle.toFixed(2) + '^\\circ'));
-  row(o, 'ضرب خارجی', '\\vec a\\times\\vec b=' + r.cross);
-  if (r.det != null) {
-    row(o, 'دترمینان M', '\\det M=' + r.det);
-    row(o, 'مقادیر ویژه', '\\lambda=' + r.eig);
-    if (r.inv) row(o, 'وارون M', 'M^{-1}=' + r.inv);
-    if (r.Ma) row(o, 'M a', 'M\\vec a=' + r.Ma);
-  }
-  say(o, 'ماتریس M را می‌توان تانسور مرتبه‌ی دو در نظر گرفت (مثل تانسور تنش یا لختی)؛ مقادیر ویژه‌ی آن جهت‌های اصلی را می‌دهند.');
-}
-
-
-fill($('spre'), SP, p => { $('sf').value = p[1]; $('sx').value = p[2]; $('sy').value = p[3]; py && runScalar(); });
-fill($('vpre'), VP, p => { $('vx').value = p[1]; $('vy').value = p[2]; $('vx0').value = p[3]; $('vy0').value = p[4]; py && runField(); });
-const lab = () => { $('sthv').textContent = fa($('sth').value) + '°'; $('sdsv').textContent = fa($('sds').value); };
-['sth', 'sds'].forEach(i => $(i).oninput = () => { lab(); py && runScalar(); });
-$('srun').onclick = () => py && runScalar(); $('vrun').onclick = () => py && runField(); $('lrun').onclick = () => py && runLin();
-lab(); 
-
-HK.sc=runScalar;HK.vf=runField;HK.la=runLin;INIT.push(p=>{py=p});})();
-
-(function(){
-const $=id=>document.getElementById(id);
-const norm=s=>s.replace(/[۰-۹]/g,c=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(c)).replace(/٫/g,'.').replace(/،/g,',').replace(/−/g,'-');
-const tex=(el,s)=>katex.render(s,el,{displayMode:false,throwOnError:false});
-const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-let py;const call=(fn,o)=>JSON.parse(py.globals.get(fn)(JSON.stringify(o)));
-const row=(b,t,s)=>{const r=document.createElement('div');r.className='row';r.innerHTML='<span></span><div></div>';r.firstChild.textContent=t;tex(r.lastChild,s);b.appendChild(r)};
-const say=(b,t)=>{const p=document.createElement('div');p.className='say';p.textContent=t;b.appendChild(p)};
-const bad=(b,m)=>{b.innerHTML='<p class="err"></p>';b.firstChild.textContent='ورودی قابل پردازش نبود: '+m};
-const sc=v=>v==null?'—':Number(v).toExponential(3);
-const rows=s=>norm(s).split('\n').map(l=>l.trim().split(/[,\s;]+/).map(Number)).filter(r=>r.length==3&&r.every(Number.isFinite));
-const cfg={displayModeBar:false,responsive:true};
-const arrow=(x,y,dx,dy,c)=>({x:x+dx,y:y+dy,ax:x,ay:y,xref:'x',yref:'y',axref:'x',ayref:'y',showarrow:true,arrowhead:2,arrowwidth:1,arrowcolor:c,text:''});
-const quiver=(q,len,c)=>q.map(([x,y,a,b])=>{const m=Math.hypot(a,b);return m>1e-30?arrow(x,y,a/m*len,b/m*len,c):null}).filter(Boolean);
-const lay=(R,eq)=>({margin:{t:10,r:10,b:40,l:50},paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{family:'Vazirmatn, Tahoma',color:css('--ink')},showlegend:false,
- xaxis:{title:eq?'x':'t',range:R&&[-R,R],gridcolor:css('--line')},yaxis:{title:eq?'y':'',range:R&&[-R,R],scaleanchor:eq?'x':undefined,gridcolor:css('--line')}});
-const pt=(x,y)=>({type:'scatter',x:[x],y:[y],mode:'markers',marker:{size:10,color:css('--acc2')}});
-
-function runCh(){const o=$('ch_out');o.innerHTML='';
- const r=call('chain',{f:norm($('ch_f').value),x:norm($('ch_x').value),y:norm($('ch_y').value),t0:+norm($('ch_t0').value),t1:+norm($('ch_t1').value)});
- if(!r.ok)return bad(o,r.msg);
- const L=lay(null,false);L.showlegend=true;
- Plotly.react('ch_plot',[{x:r.ts,y:r.T,mode:'lines',name:'T(t)',line:{color:css('--acc'),width:3}},{x:r.ts,y:r.D,mode:'lines',name:'dT/dt',line:{color:css('--acc2'),width:3}}],L,cfg);
- row(o,'قاعده‌ی زنجیره‌ای','\\frac{dT}{dt}=T_x\\,x\'(t)+T_y\\,y\'(t)='+r.chain);
- row(o,'بررسی عددی در یک‌چهارم بازه','\\text{formula}='+r.Dmid.toPrecision(5)+'\\quad \\text{numeric}='+r.num.toPrecision(5));
- say(o,(r.verified?'با SymPy تأیید شد: نتیجه با مشتق مستقیم T(x(t), y(t)) برابر است. ':'تأیید نمادین انجام نشد. ')+'در یک‌چهارم بازه (t='+r.mid.toPrecision(3)+') '+(Math.abs(r.Dmid)<1e-9?'آهنگ تغییر صفر است: نقطه‌ی بیشینه یا کمینه‌ی دماست.':(r.Dmid>0?'ذره دارد گرم‌تر می‌شود.':'ذره دارد سردتر می‌شود.'))+' اگر مسیر دایره‌ای به مرکز منبع باشد، همه‌جا dT/dt=۰ است، چون مسیر روی خط هم‌دماست.');}
-
-const EP=[['بار نقطه‌ای مثبت','2, 0, 0'],['دوقطبی','2, -1.5, 0\n-2, 1.5, 0'],['دو بار هم‌نام','2, -1.5, 0\n2, 1.5, 0']];
-EP.forEach((p,i)=>$('el_pre').add(new Option(p[0],i)));
-$('el_pre').onchange=()=>{$('el_q').value=EP[$('el_pre').value][1];py&&runEl()};$('el_q').value=EP[0][1];
-function runEl(){const o=$('el_out');o.innerHTML='';const R=+$('el_R').value,x0=+$('el_x').value,y0=+$('el_y').value,q0=+$('el_q0').value,Q=rows($('el_q').value);
- if(!Q.length)return bad(o,'هر خط باید «q, x, y» باشد');
- const r=call('elec',{Q,x0,y0,q0,R});if(!r.ok)return bad(o,r.msg);
- const L=lay(R,true);L.annotations=quiver(r.q,R/6,css('--mut'));
- Plotly.react('el_plot',[{type:'contour',x:r.xs,y:r.xs,z:r.Z,colorscale:'RdBu',reversescale:true,line:{width:.5},showscale:false},
-  {type:'scatter',x:Q.map(c=>c[1]),y:Q.map(c=>c[2]),mode:'markers+text',text:Q.map(c=>c[0]>0?'+':'−'),textfont:{size:16,color:'#fff'},marker:{size:20,color:Q.map(c=>c[0]>0?'#c0392b':'#2e6fd0')}},pt(x0,y0)],L,cfg);
- row(o,'پتانسیل','V=\\sum \\frac{kq_i}{r_i}='+sc(r.V)+'\\ \\text{V}');
- row(o,'میدان الکتریکی','\\vec E=\\sum \\frac{kq_i}{r_i^2}\\hat r_i=('+sc(r.ex)+',\\ '+sc(r.ey)+')\\ \\text{N/C},\\ |E|='+sc(r.E));
- row(o,'نیرو روی بار آزمون','F=|q_0|E='+sc(r.F)+'\\ \\text{N}');
- say(o,'جهت میدان '+r.ang.toFixed(1)+' درجه از محور x است. بررسی E = −∇V با مشتق عددی پتانسیل: خطای نسبی '+r.err.toExponential(1)+(r.err<1e-4?' (برقرار است).':' (زیاد است؛ نقطه به بار نزدیک است؟).')+' خطوط رنگی هم‌پتانسیل‌اند و فلش‌ها همیشه عمود بر آن‌ها هستند.');}
-
-function runMg(){const o=$('mg_out');o.innerHTML='';const R=+$('mg_R').value,x0=+$('mg_x').value,y0=+$('mg_y').value,W=rows($('mg_w').value);
- if(!W.length)return bad(o,'هر خط باید «I, x, y» باشد');
- const r=call('mag',{W,x0,y0,I2:+$('mg_i2').value,R});if(!r.ok)return bad(o,r.msg);
- const L=lay(R,true);L.annotations=quiver(r.q,R/6,css('--mut'));
- Plotly.react('mg_plot',[{type:'scatter',x:W.map(c=>c[1]),y:W.map(c=>c[2]),mode:'markers+text',text:W.map(c=>c[0]>0?'⊙':'⊗'),textfont:{size:16,color:'#fff'},marker:{size:22,color:css('--acc')}},pt(x0,y0)],L,cfg);
- row(o,'میدان در نقطه','B=\\sum\\frac{\\mu_0 I}{2\\pi r}:\\ ('+sc(r.bx)+',\\ '+sc(r.by)+')\\ \\text{T},\\ |B|='+sc(r.B));
- row(o,'نیرو بر واحد طول سیم آزمون','\\frac{\\vec F}{L}=I_2\\,(\\hat z\\times\\vec B)=('+sc(r.fx)+',\\ '+sc(r.fy)+')\\ \\text{N/m}');
- row(o,'قانون آمپر','\\oint \\vec B\\cdot d\\vec l='+sc(r.circ)+'\\quad \\mu_0I_{enc}='+sc(r.mui));
- say(o,'انتگرال خطی عددی B روی دایره‌ای به شعاع ۹۵٪ نیم‌پهنا با μ₀I درون آن می‌خواند؛ برابری این دو بررسی درستی میدان محاسبه‌شده است. دو سیم هم‌جهت یکدیگر را می‌ربایند و دو سیم در خلاف جهت یکدیگر را می‌رانند.');}
-
-function runMp(){const o=$('mp_out');o.innerHTML='';
- const r=call('part',{q:+$('mp_q').value,m:+$('mp_m').value,v:+$('mp_v').value,B:+$('mp_B').value});if(!r.ok)return bad(o,r.msg);
- const L=lay(null,true);L.xaxis.title='x (m)';L.yaxis.title='y (m)';
- Plotly.react('mp_plot',[{x:r.x,y:r.y,mode:'lines',line:{color:css('--acc'),width:3}},pt(0,0)],L,cfg);
- row(o,'شعاع و دوره','r=\\frac{mv}{|q|B}='+sc(r.r)+'\\ \\text{m},\\quad T=\\frac{2\\pi m}{|q|B}='+sc(r.T)+'\\ \\text{s}');
- row(o,'شعاع از شبیه‌سازی عددی','r_{num}='+sc(r.rn)+'\\ \\text{m}');
- say(o,'نیروی مغناطیسی F = qv×B همیشه بر سرعت عمود است، پس کار نمی‌کند و تندی ثابت می‌ماند و مسیر دایره است. در شبیه‌سازی عددی بدون استفاده از فرمول، شعاعی نزدیک به فرمول به دست آمد. دوره به سرعت وابسته نیست.');}
-
-$('ch_run').onclick=()=>py&&runCh();$('el_run').onclick=()=>py&&runEl();$('mg_run').onclick=()=>py&&(runMg(),runMp());$('mp_run').onclick=()=>py&&runMp();
-HK.ch=runCh;HK.el=runEl;HK.mg=()=>{runMg();runMp()};INIT.push(p=>{py=p});
-})();
-
-(function(){
-const $=id=>document.getElementById(id);
-const norm=s=>s.replace(/[۰-۹]/g,c=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(c)).replace(/٫/g,'.').replace(/،/g,',').replace(/−/g,'-');
-const tex=(el,s)=>katex.render(s,el,{displayMode:false,throwOnError:false});
-const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-let py;const call=(fn,o)=>JSON.parse(py.globals.get(fn)(JSON.stringify(o)));
-const row=(b,t,s)=>{const r=document.createElement('div');r.className='row';r.innerHTML='<span></span><div></div>';r.firstChild.textContent=t;tex(r.lastChild,s);b.appendChild(r)};
-const say=(b,t)=>{const p=document.createElement('div');p.className='say';p.textContent=t;b.appendChild(p)};
-const h2=(b,t)=>{const h=document.createElement('h2');h.textContent=t;b.appendChild(h)};
-const bad=(b,m)=>{b.innerHTML='<p class="err"></p>';b.firstChild.textContent='ورودی قابل پردازش نبود: '+m};
-const n=id=>+norm($(id).value),sc=v=>v==null?'—':Number(v).toExponential(3),p4=v=>Number(v).toPrecision(4);
-const cfg={displayModeBar:false,responsive:true};
-const sc3=R=>({margin:{t:0,r:0,b:0,l:0},paper_bgcolor:'rgba(0,0,0,0)',showlegend:false,font:{family:'Vazirmatn, Tahoma',color:css('--ink')},
- scene:{aspectmode:R?'cube':'data',xaxis:{title:'x',range:R&&[-R,R]},yaxis:{title:'y',range:R&&[-R,R]},zaxis:{title:'z',range:R&&[-R,R]}}});
-const cone=(p,v,size,c)=>({type:'cone',x:[p[0]],y:[p[1]],z:[p[2]],u:[v[0]],v:[v[1]],w:[v[2]],sizemode:'absolute',sizeref:size,anchor:'tail',showscale:false,colorscale:[[0,c],[1,c]]});
-const pt3=(p,c)=>({type:'scatter3d',mode:'markers',x:[p[0]],y:[p[1]],z:[p[2]],marker:{size:5,color:c}});
-const unit=v=>{const m=Math.hypot(...v);return m>0?v.map(a=>a/m):v};
-const vec=a=>'('+a.map(p4).join(',\\ ')+')';
-
-const SP=[['بخاری سه‌بعدی','20 + 60*exp(-(x^2+y^2+z^2)/8)',[2,1,1],[1,1,1]],['پتانسیل بار نقطه‌ای','9/sqrt(x^2+y^2+z^2)',[1,1,1],[1,0,0]],['حاصل‌ضرب xyz','x*y*z',[1,1,1],[1,1,1]]];
-SP.forEach((p,i)=>$('s3_pre').add(new Option(p[0],i)));
-const setS=i=>{const p=SP[i];$('s3_f').value=p[1];['x','y','z'].forEach((k,j)=>$('s3_'+k).value=p[2][j]);['a','b','c'].forEach((k,j)=>$('s3_'+k).value=p[3][j])};
-$('s3_pre').onchange=()=>{setS($('s3_pre').value);py&&runS3()};setS(0);
-function runS3(){const o=$('s3_out');o.innerHTML='';const R=n('s3_R'),p=[n('s3_x'),n('s3_y'),n('s3_z')];
- const r=call('scalar3',{f:norm($('s3_f').value),p,u:[n('s3_a'),n('s3_b'),n('s3_c')],R});if(!r.ok)return bad(o,r.msg);
- const L=sc3(R);const tr=[{type:'isosurface',x:r.X,y:r.Y,z:r.Z,value:r.V,isomin:r.f0,isomax:r.f0,surface:{count:1},opacity:.35,showscale:false,colorscale:'YlOrRd',caps:{x:{show:false},y:{show:false},z:{show:false}}},pt3(p,css('--ink'))];
- const u=r.u,Ls=R*.45;tr.push({type:'scatter3d',mode:'lines',x:[p[0],p[0]+u[0]*Ls],y:[p[1],p[1]+u[1]*Ls],z:[p[2],p[2]+u[2]*Ls],line:{color:css('--acc'),width:6}});
- if(r.cg)tr.push(cone(p,r.cg,R*.3,css('--acc2')));Plotly.react('s3_plot',tr,L,cfg);
- h2(o,'مراحل حل');
- row(o,'۱) تابع','f='+r.f);
- row(o,'۲) مشتق‌های جزئی','f_x='+r.gr[0]+',\\ f_y='+r.gr[1]+',\\ f_z='+r.gr[2]);
- row(o,'۳) گرادیان در نقطه','\\nabla f='+vec(r.gv)+',\\ |\\nabla f|='+p4(r.mag));
- row(o,'۴) بردار یکه و کسینوس‌های هادی','\\hat u=(\\cos\\alpha,\\cos\\beta,\\cos\\gamma)='+vec(r.u));
- row(o,'۵) مشتق جهتی','D_uf=\\nabla f\\cdot\\hat u='+p4(r.D)+(r.phi!=null?',\\ \\varphi='+r.phi.toFixed(1)+'^\\circ':''));
- row(o,'۶) لاپلاسین','\\nabla^2 f='+r.lap+(r.lapv!=null?'\\ \\Rightarrow\\ '+p4(r.lapv):''));
- if(r.cg)row(o,'جهت بیشترین افزایش','\\hat g='+vec(r.cg));
- const eps=1e-9*Math.max(1,r.mag);
- let t=r.mag<1e-9?'گرادیان صفر است؛ در هیچ جهتی (مرتبه‌ی اول) تغییری نیست.':Math.abs(r.D)<eps?'در این جهت تغییری نمی‌کند: جهت بر گرادیان عمود است و روی رویه‌ی هم‌مقدار حرکت می‌کنید.':(r.D>0?'در این جهت مقدار افزایش می‌یابد':'در این جهت مقدار کاهش می‌یابد')+' (زاویه با گرادیان '+r.phi.toFixed(1)+' درجه است).';
- if(r.cg)t+=' بیشترین افزایش در جهت (cosα, cosβ, cosγ) = '+r.cg.map(a=>a.toFixed(3)).join(' ، ')+' با آهنگ '+p4(r.mag)+'. صفحه‌ی رنگی رویه‌ی هم‌مقدار است و گرادیان (مخروط کهربایی) بر آن عمود است.';
- say(o,t);}
-
-const VP=[['چشمه','x','y','z'],['گرداب حول محور z','-y','x','0'],['گرداب با بالا رفتن (مارپیچ)','-y','x','0.3'],['میدان الکتریکی بار نقطه‌ای','x/(x^2+y^2+z^2)^1.5','y/(x^2+y^2+z^2)^1.5','z/(x^2+y^2+z^2)^1.5'],['میدان مغناطیسی سیم راست (محور z)','-y/(x^2+y^2)','x/(x^2+y^2)','0']];
-VP.forEach((p,i)=>$('v3_pre').add(new Option(p[0],i)));
-const setV=i=>{const p=VP[i];$('v3_vx').value=p[1];$('v3_vy').value=p[2];$('v3_vz').value=p[3]};
-$('v3_pre').onchange=()=>{setV($('v3_pre').value);py&&runV3()};setV(1);
-function runV3(){const o=$('v3_out');o.innerHTML='';const R=n('v3_R'),p=[n('v3_px'),n('v3_py'),n('v3_pz')];
- const r=call('field3',{vx:norm($('v3_vx').value),vy:norm($('v3_vy').value),vz:norm($('v3_vz').value),p,R,T:n('v3_T')});if(!r.ok)return bad(o,r.msg);
- const c=r.cone,m=c[3].map((_,i)=>Math.hypot(c[3][i],c[4][i],c[5][i])||1);
- const tr=[{type:'cone',x:c[0],y:c[1],z:c[2],u:c[3].map((a,i)=>a/m[i]),v:c[4].map((a,i)=>a/m[i]),w:c[5].map((a,i)=>a/m[i]),sizemode:'absolute',sizeref:R*.35,anchor:'tail',showscale:false,colorscale:[[0,css('--mut')],[1,css('--mut')]]},
-  {type:'scatter3d',mode:'lines',x:r.tr.map(a=>a[0]),y:r.tr.map(a=>a[1]),z:r.tr.map(a=>a[2]),line:{color:css('--acc'),width:6}},pt3(p,css('--acc2'))];
- Plotly.react('v3_plot',tr,sc3(R),cfg);
- h2(o,'مراحل حل');
- const J=r.J;row(o,'۱) ماتریس مشتق‌ها','\\begin{pmatrix}'+J.map(rw=>rw.join('&')).join('\\\\')+'\\end{pmatrix}');
- row(o,'۲) واگرایی','\\partial_xv_x+\\partial_yv_y+\\partial_zv_z='+r.div+(r.dv!=null?'\\ \\Rightarrow\\ '+p4(r.dv):''));
- row(o,'۳) چرخش','\\nabla\\times\\vec v=('+r.curl.join(',\\ ')+')'+(r.cv.every(a=>a!=null)?'\\ \\Rightarrow\\ '+vec(r.cv):''));
- const e=1e-9,pa=[];if(r.dv!=null&&r.dv>e)pa.push('چشمه');if(r.dv!=null&&r.dv<-e)pa.push('چاه');
- const cm=r.cv.every(a=>a!=null)?Math.hypot(...r.cv):0;if(cm>e)pa.push('گرداب با محور چرخش در راستای بردار چرخش');
- let t='در نقطه‌ی شروع: '+(pa.length?pa.join(' + '):'نه چشمه است نه چاه و چرخشی هم ندارد.');
- if(r.divzero)t+=' واگرایی همه‌جا صفر است (چشمه و چاهی نیست).';if(r.curlzero)t+=' چرخش همه‌جا صفر است (میدان بی‌چرخش).';
- if(r.tr.length>1){const a=r.tr[0],b=r.tr[r.tr.length-1];t+=' ذره‌ی آزمون از فاصله‌ی '+Math.hypot(...a).toFixed(2)+' به '+Math.hypot(...b).toFixed(2)+' از مبدأ می‌رسد.'}
- say(o,t);}
-
-function runM3(){const o=$('m3_out');o.innerHTML='';
- const W=norm($('m3_w').value).split('\n').map(l=>l.trim().split(/[,\s;]+/).map(Number)).filter(r=>r.length==7&&r.every(Number.isFinite));
- if(!W.length)return bad(o,'هر خط سیم باید ۷ عدد باشد: I و سه عدد نقطه و سه عدد جهت');
- const p=[n('m3_px'),n('m3_py'),n('m3_pz')],R=n('m3_R');
- const r=call('mag3',{W,p,I2:n('m3_i2'),w:[n('m3_wa'),n('m3_wb'),n('m3_wc')],R});if(!r.ok)return bad(o,r.msg);
- const tr=r.segs.map(s=>({type:'scatter3d',mode:'lines',x:[s[0][0],s[1][0]],y:[s[0][1],s[1][1]],z:[s[0][2],s[1][2]],line:{color:css('--acc'),width:7}}));
- tr.push(pt3(p,css('--ink')));if(r.Bm>0)tr.push(cone(p,unit(r.B),R*.4,css('--acc2')));if(r.Fm>0)tr.push(cone(p,unit(r.F),R*.4,'#b3261e'));
- Plotly.react('m3_plot',tr,sc3(R),cfg);
- row(o,'میدان در نقطه','\\vec B=\\sum\\frac{\\mu_0 I\\,(\\hat u\\times\\vec r)}{2\\pi\\,|\\hat u\\times\\vec r|^2}='+vec(r.B.map(a=>+a.toExponential(3)))+'\\ \\text{T},\\ |B|='+sc(r.Bm));
- row(o,'نیرو بر واحد طول سیم آزمون','\\frac{\\vec F}{L}=I_2\\,(\\hat w\\times\\vec B)='+vec(r.F.map(a=>+a.toExponential(3)))+'\\ \\text{N/m}');
- say(o,'مخروط کهربایی جهت میدان B و مخروط قرمز جهت نیرو است. نیرو همیشه بر B و بر جهت سیم آزمون عمود است (ضرب خارجی). اگر سیم آزمون با B موازی باشد نیرو صفر می‌شود.');}
-
-function runP3(){const o=$('p3_out');o.innerHTML='';
- const r=call('part3',{q:n('p3_q'),m:n('p3_m'),v:[n('p3_vx'),n('p3_vy'),n('p3_vz')],B:[n('p3_bx'),n('p3_by'),n('p3_bz')]});if(!r.ok)return bad(o,r.msg);
- Plotly.react('p3_plot',[{type:'scatter3d',mode:'lines',x:r.p[0],y:r.p[1],z:r.p[2],line:{color:css('--acc'),width:6}},pt3([0,0,0],css('--acc2'))],sc3(null),cfg);
- row(o,'مؤلفه‌ها','v_\\parallel='+sc(r.vpar)+',\\ v_\\perp='+sc(r.vperp)+'\\ \\text{m/s}');
- row(o,'شعاع، دوره و گام','r=\\frac{mv_\\perp}{|q|B}='+sc(r.r)+'\\ \\text{m},\\ T='+sc(r.T)+'\\ \\text{s},\\ \\text{pitch}=|v_\\parallel|T='+sc(r.pitch)+'\\ \\text{m}');
- say(o,'مؤلفه‌ی سرعت عمود بر B دایره می‌سازد و مؤلفه‌ی موازی ثابت می‌ماند، پس مسیر مارپیچ است. نیروی مغناطیسی کار نمی‌کند: تغییر نسبی تندی در شبیه‌سازی '+r.dv.toExponential(1)+' است.');}
-
-const KEYS=[['7','7','۷'],['8','8','۸'],['9','9','۹'],['÷','/','تقسیم'],['xⁿ','^','توان'],['4','4','۴'],['5','5','۵'],['6','6','۶'],['×','*','ضرب'],['√','sqrt(','جذر'],
-['1','1','۱'],['2','2','۲'],['3','3','۳'],['−','-','منها'],['|x|','Abs(','قدر مطلق'],['0','0','۰'],['.','.','ممیز'],['x','x','متغیر x'],['+','+','جمع'],['=','=','مساوی'],
-['(','(','پرانتز باز'],[')',')','پرانتز بسته'],['π','pi','عدد پی'],['e','E','عدد نپر'],['eˣ','exp(','تابع نمایی'],
-['sin','sin(','سینوس'],['cos','cos(','کسینوس'],['tan','tan(','تانژانت'],['cot','cot(','کتانژانت'],['ln','log(','لگاریتم طبیعی'],
-['sin⁻¹','asin(','آرک‌سینوس'],['cos⁻¹','acos(','آرک‌کسینوس'],['tan⁻¹','atan(','آرک‌تانژانت'],['sinh','sinh(','سینوس هذلولی'],['cosh','cosh(','کسینوس هذلولی']];
-KEYS.forEach(k=>{const b=document.createElement('button');b.className='key';b.type='button';b.innerHTML='<b></b><small></small>';b.firstChild.textContent=k[0];b.lastChild.textContent=k[2];
- b.onclick=()=>{const i=$('c_expr'),a=i.selectionStart==null?i.value.length:i.selectionStart,e=i.selectionEnd==null?a:i.selectionEnd;i.value=i.value.slice(0,a)+k[1]+i.value.slice(e);i.focus();i.setSelectionRange(a+k[1].length,a+k[1].length)};$('c_keys').appendChild(b)});
-$('c_bs').onclick=()=>{const i=$('c_expr'),a=i.selectionStart;if(a>0){i.value=i.value.slice(0,a-1)+i.value.slice(i.selectionEnd);i.setSelectionRange(a-1,a-1)}i.focus()};
-$('c_cl').onclick=()=>{$('c_expr').value='';$('c_out').innerHTML=''};
-const LBL={diff:'f\'(x)=',int:'\\int f\\,dx=',solve:'',simp:''};
-function runC(op){const o=$('c_out');o.innerHTML='';const s=norm($('c_expr').value);if(!s.trim())return bad(o,'عبارت خالی است');
- const r=call('cas2',{op,s});if(!r.ok)return bad(o,r.msg);
- row(o,'عبارت','f(x)='+r.inp);h2(o,'مراحل حل');r.steps.forEach(st=>st[1]?row(o,st[0],st[1]):say(o,st[0]));
- row(o,'جواب نهایی',(LBL[op]||'')+r.out);}
-document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>py&&runC(b.dataset.c));
-$('s3_run').onclick=()=>py&&runS3();$('v3_run').onclick=()=>py&&runV3();$('m3_run').onclick=()=>py&&runM3();$('p3_run').onclick=()=>py&&runP3();
-HK.s3=runS3;HK.v3=runV3;HK.m3=()=>{runM3();runP3()};INIT.push(p=>{py=p});
-})();
-
-(function(){let py;const ids=['sf','s3_f','ch_f','ch_x','ch_y','vx','vy','v3_vx','v3_vy','v3_vz'];
-const norm=s=>s.replace(/[۰-۹]/g,c=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(c)).replace(/٫/g,'.').replace(/−/g,'-');
-const bx={};ids.forEach(id=>{const el=document.getElementById(id);if(!el)return;const d=document.createElement('div');d.className='prev';el.after(d);bx[id]={el,d,last:null}});
-const upd=b=>{const s=norm(b.el.value).trim();b.last=b.el.value;if(!s){b.d.textContent='';return}
- try{const r=JSON.parse(py.globals.get('prev')(s));if(r.ok)katex.render(r.tex,b.d,{throwOnError:false});else b.d.textContent='⚠ فرمول درست فهمیده نشد: برای ضرب از * و برای توان از ^ استفاده کنید.'}catch(e){}};
-setInterval(()=>{if(py)Object.values(bx).forEach(b=>{if(b.el.value!==b.last&&b.el.offsetParent!==null)upd(b)})},400);
-INIT.push(p=>{py=p});})();
-
-(function(){
-const $=id=>document.getElementById(id);
-const norm=s=>s.replace(/[۰-۹]/g,c=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(c)).replace(/٫/g,'.').replace(/،/g,',').replace(/−/g,'-');
-const tex=(el,s)=>katex.render(s,el,{displayMode:false,throwOnError:false});
-const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-let py;const call=(fn,o)=>JSON.parse(py.globals.get(fn)(JSON.stringify(o)));
-const row=(b,t,s)=>{const r=document.createElement('div');r.className='row';r.innerHTML='<span></span><div></div>';r.firstChild.textContent=t;tex(r.lastChild,s);b.appendChild(r)};
-const say=(b,t)=>{const p=document.createElement('div');p.className='say';p.textContent=t;b.appendChild(p)};
-const bad=(b,m)=>{b.innerHTML='<p class="err"></p>';b.firstChild.textContent='ورودی قابل پردازش نبود: '+m};
-const cfg={displayModeBar:false,responsive:true};
-const num=id=>+norm($(id).value);
-const p5=v=>Number(v).toPrecision(5);
-const lay=()=>({margin:{t:10,r:10,b:40,l:50},paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{family:'Vazirmatn, Tahoma',color:css('--ink')},showlegend:false,xaxis:{title:'x',gridcolor:css('--line')},yaxis:{title:'T',gridcolor:css('--line')}});
-
-function lpMode(){const c=$('lp_mode').value=='cross';$('lp_line').style.display=c?'none':'';$('lp_cross').style.display=c?'':'none';}
-$('lp_mode').onchange=()=>{lpMode();runLp()};
-function runLp(){const o=$('lp_out');o.innerHTML='';
- const mode=$('lp_mode').value,al=num('lp_al');const d={mode,alpha:al};
- if(mode=='line'){d.x=[1,2,3,4].map(i=>num('lp_x'+i));d.T=[1,2,3,4].map(i=>num('lp_T'+i));}
- else{d.T=['Tc','TE','TW','TN','TS'].map(k=>num('lp_'+k));d.hx=num('lp_hx');d.hy=num('lp_hy');}
- if(!Number.isFinite(al)||[...(d.x||[]),...d.T].some(v=>!Number.isFinite(v))||(mode=='cross'&&!(Number.isFinite(d.hx)&&Number.isFinite(d.hy))))return bad(o,'یکی از کادرها عدد نیست');
- const r=call('heat',d);if(!r.ok)return bad(o,r.msg);
- const L=lay();
- if(r.mode=='line'){
-  Plotly.react('lp_plot',[{x:r.xs,y:r.ys,mode:'lines',line:{color:css('--acc'),width:3,dash:'dot'}},
-   {x:r.x,y:r.T,mode:'markers+text',text:['t₁','t₂','t₃','t₄'],textposition:'top center',marker:{size:[9,9,13,9],color:[css('--acc'),css('--acc'),css('--acc2'),css('--acc')]}}],L,cfg);
-  row(o,'لاپلاسین در t₃ (از t₂ و t₃ و t₄)','\\nabla^2T\\approx\\frac{d^2T}{dx^2}='+p5(r.lap));
-  row(o,'بررسی با چندجمله‌ای درجه سه از هر چهار نقطه','\\frac{d^2T}{dx^2}='+p5(r.lap4)+'\\quad \\frac{dT}{dx}='+p5(r.grad));
-  row(o,'معادله‌ی گرما','\\frac{\\partial T}{\\partial t}=\\alpha\\nabla^2T='+p5(r.rate));
-  say(o,(r.lap>0?'لاپلاسین مثبت است: t₃ از میانگین همسایه‌هایش سردتر است و گرم می‌شود. ':r.lap<0?'لاپلاسین منفی است: t₃ از میانگین همسایه‌هایش داغ‌تر است و سرد می‌شود. ':'لاپلاسین صفر است: دما در t₃ فعلاً تغییری نمی‌کند. ')+'اگر مکان‌ها بر حسب سانتی‌متر و α بر حسب cm²/s باشد، آهنگ تغییر بر حسب درجه بر ثانیه است. دو تخمین از لاپلاسین هرچه به هم نزدیک‌تر باشند، دما در این بازه به یک سهمی نزدیک‌تر است.');
- }else{
-  const [Tc,TE,TW,TN,TS]=r.T,h=r.hx;
-  Plotly.react('lp_plot',[{x:[0,h,-h,0,0],y:[0,0,0,r.hy,-r.hy],mode:'markers+text',text:['t₃: '+Tc,TE,TW,TN,TS],textposition:'top center',
-   marker:{size:22,color:[Tc,TE,TW,TN,TS],colorscale:'YlOrRd',showscale:false,line:{width:1,color:css('--ink')}}}],{...L,xaxis:{title:'x',gridcolor:css('--line'),zeroline:false},yaxis:{title:'y',gridcolor:css('--line'),zeroline:false,scaleanchor:'x'}},cfg);
-  row(o,'لاپلاسین دوبعدی در t₃','\\nabla^2T\\approx\\frac{T_E-2T_c+T_W}{h_x^2}+\\frac{T_N-2T_c+T_S}{h_y^2}='+p5(r.lx)+'+'+p5(r.ly)+'='+p5(r.lap));
-  row(o,'گرادیان دما در t₃','\\nabla T\\approx('+p5(r.gx)+',\\ '+p5(r.gy)+')');
-  row(o,'معادله‌ی گرما','\\frac{\\partial T}{\\partial t}=\\alpha\\nabla^2T='+p5(r.rate));
-  say(o,(r.lap>0?'لاپلاسین مثبت است: مرکز از میانگین همسایه‌ها سردتر است و گرم می‌شود. ':r.lap<0?'لاپلاسین منفی است: مرکز از میانگین همسایه‌ها داغ‌تر است و سرد می‌شود. ':'لاپلاسین صفر است: مرکز با میانگین همسایه‌ها هم‌دماست. ')+'این تخمین وقتی خوب است که فاصله‌ی همسایه‌ها نسبت به تغییرات دما کوچک باشد. برای دقت بیشتر، فاصله‌ها را کمتر بگیرید.');
- }}
-$('lp_run').onclick=runLp;
-
-const DEF={
- dbl:{f:'x*y',a:'0',b:'2',c:'0',d:'x'},
- vol:{f:'x+y+z',a:'0',b:'1',c:'0',d:'1-x',e:'0',h:'1-x-y'},
- surf:{f:'1',g:'x+y',a:'0',b:'1',c:'0',d:'1'},
- flux:{F1:'x',F2:'y',F3:'z',g:'2-x-y',a:'0',b:'1',c:'0',d:'1'}};
-function miKind(fill){const k=$('mi_k').value;
- document.querySelectorAll('#mi [data-k]').forEach(e=>e.style.display=e.dataset.k.split(' ').includes(k)?'':'none');
- if(fill){const D=DEF[k];['f','F1','F2','F3','g','a','b','c','d','e','h'].forEach(n=>{const el=$('mi_'+n);if(el&&D[n]!=null)el.value=D[n]});}
- $('mi_plot').style.display=k=='vol'?'none':'';}
-$('mi_k').onchange=()=>{miKind(true);runMi()};
-const LAT={dbl:'\\iint_R f\\,dA',vol:'\\iiint_V f\\,dV',surf:'\\iint_S f\\,dS=\\iint_R f(x,y,g)\\sqrt{1+g_x^2+g_y^2}\\,dA',flux:'\\iint_S \\vec F\\cdot\\hat n\\,dS=\\iint_R(-F_1g_x-F_2g_y+F_3)\\,dA'};
-function runMi(){const o=$('mi_out');o.innerHTML='';const k=$('mi_k').value;
- const d={kind:k};['f','F1','F2','F3','g','a','b','c','d','e','h'].forEach(n=>{const el=$('mi_'+n);if(el)d[n]=norm(el.value)});
- const r=call('multi',d);if(!r.ok)return bad(o,r.msg);
- if(k!='vol'){const sc={xaxis:{title:'x'},yaxis:{title:'y'},zaxis:{title:'z'}};
-  Plotly.react('mi_plot',[{type:'surface',x:r.X,y:r.Y,z:r.Z,colorscale:'Viridis',showscale:false}],{margin:{t:0,r:0,b:0,l:0},paper_bgcolor:'rgba(0,0,0,0)',font:{color:css('--ink')},scene:sc},cfg);}
- row(o,'تعریف',LAT[k]);
- row(o,'انتگرال‌ده پس از جای‌گذاری',r.integrand);
- row(o,'مقدار عددی','='+Number(r.val).toPrecision(9));
- if(r.exact)row(o,'جواب دقیق','='+r.exact);
- say(o,r.exact?(r.chk?'جواب دقیق با SymPy به دست آمد و با محاسبه‌ی عددی هم یکی است.':'جواب دقیق و عددی با هم نمی‌خوانند؛ فرمول و کران‌ها را دوباره بررسی کنید.'):'انتگرال‌ده چندجمله‌ای نیست، پس فقط مقدار عددی (با خطای تخمینی حدود '+Number(r.err).toExponential(1)+') محاسبه شد.');}
-$('mi_run').onclick=runMi;
-miKind(true);lpMode();
-HK.lp=runLp;HK.mi=runMi;INIT.push(p=>{py=p});})();
-(async()=>{const S=document.getElementById('status');
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-let step='';
-async function boot(){
- S.textContent='در حال بارگذاری موتور پایتون… (۱/۴)';
- step='pyodide';
- const py=await loadPyodide();
- // بارگذاری پشت‌سرهم (نه موازی) تا مصرف حافظه‌ی لحظه‌ای روی گوشی کمتر شود
- S.textContent='در حال بارگذاری numpy… (۲/۴)'; step='numpy'; await py.loadPackage('numpy'); await sleep(50);
- S.textContent='در حال بارگذاری sympy… (۳/۴)'; step='sympy'; await py.loadPackage('sympy'); await sleep(50);
- S.textContent='در حال بارگذاری scipy… (۴/۴)'; step='scipy'; await py.loadPackage('scipy'); await sleep(50);
- step='runPython'; py.runPython(PY);
- return py;
-}
-let py,err;
-for(let i=0;i<2&&!py;i++){try{py=await boot()}catch(e){err=e;S.textContent='تلاش دوباره…';await sleep(800)}}
-if(py){INIT.forEach(f=>f(py));window.PYO=py;S.textContent='موتور پایتون آماده است ✓';S.className='ready';const on=document.querySelector('nav button.on').dataset.t;HK[on]&&HK[on]();}
-else{S.innerHTML='بارگذاری ناموفق بود (احتمالاً کمبود حافظه‌ی گوشی). تب‌های دیگر را ببندید و صفحه را دوباره باز کنید. [مرحله: '+step+'] ('+String(err&&err.message||err).slice(0,200)+') <button onclick="location.reload()" style="margin-top:8px">تلاش دوباره</button>'}
-})();
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button,section').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');window.PYO&&HK[b.dataset.t]&&HK[b.dataset.t]();});
-</script></body></html> const py=await loadPyodide();
- // بارگذاری پشت‌سرهم (نه موازی) تا مصرف حافظه‌ی لحظه‌ای روی گوشی کمتر شود
- S.textContent='در حال بارگذاری numpy… (۲/۴)'; step='numpy'; await py.loadPackage('numpy'); await sleep(50);
- S.textContent='در حال بارگذاری sympy… (۳/۴)'; step='sympy'; await py.loadPackage('sympy'); await sleep(50);
- S.textContent='در حال بارگذاری scipy… (۴/۴)'; step='scipy'; await py.loadPackage('scipy'); await sleep(50);
- step='runPython'; py.runPython(PY);
- return py;
-}
-let py,err;
-for(let i=0;i<2&&!py;i++){try{py=await boot()}catch(e){err=e;S.textContent='تلاش دوباره…';await sleep(800)}}
-if(py){INIT.forEach(f=>f(py));window.PYO=py;S.textContent='موتور پایتون آماده است ✓';S.className='ready';const on=document.querySelector('nav button.on').dataset.t;HK[on]&&HK[on]();}
-else{S.innerHTML='بارگذاری ناموفق بود (احتمالاً کمبود حافظه‌ی گوشی). تب‌های دیگر را ببندید و صفحه را دوباره باز کنید. [مرحله: '+step+'] ('+String(err&&err.message||err).slice(0,200)+') <button onclick="location.reload()" style="margin-top:8px">تلاش دوباره</button>'}
-})();
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button,section').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');window.PYO&&HK[b.dataset.t]&&HK[b.dataset.t]();});
-</script></body></html>
+ document.querySelectorAll('#mi [data-k]').forEa
