@@ -315,21 +315,57 @@ nav{overflow-x:auto}nav button{white-space:nowrap}textarea{min-height:0}.how{mar
 <div class="keys" id="c_keys"></div>
 <div><button class="act" data-c="diff">مشتق  d/dx</button><button class="act" data-c="int">انتگرال  ∫</button><button class="act" data-c="solve">حل معادله</button><button class="act" data-c="simp">ساده‌سازی</button><button class="act alt" id="c_bs">⌫ پاک‌کردن یک نویسه</button><button class="act alt" id="c_cl">C پاک‌کردن همه</button></div>
 <div id="c_out"></div></section></main>
-<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script>window.HK={};window.INIT=[];
-const PY = String.raw`import json, numpy as np
-from sympy import symbols, exp, log, diff, simplify, integrate, solve, latex, E
+const PYC = {
+core: String.raw`import json, numpy as np
+from sympy import symbols, exp, log, diff, simplify, integrate, solve, latex, E, lambdify, Matrix, sqrt, acos, N, pi, Add, Poly, factor
 from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application, convert_xor
 _raw_parse = parse_expr
 _NT = str.maketrans({'×':'*','·':'*','⋅':'*','∙':'*','÷':'/','−':'-','–':'-','٫':'.','،':',','٬':'', **{c:str(i) for i,c in enumerate('۰۱۲۳۴۵۶۷۸۹')}, **{c:str(i) for i,c in enumerate('٠١٢٣٤٥٦٧٨٩')}})
 def parse_expr(s, *a, **k): return _raw_parse(s.translate(_NT) if isinstance(s, str) else s, *a, **k)
-from scipy.optimize import curve_fit
-from scipy.stats import t as tdist
-
 t, k, C0 = symbols('t k C0', positive=True)
-RHS = {0: lambda c: -k, 1: lambda c: -k*c, 2: lambda c: -k*c**2}
+TR = standard_transformations + (implicit_multiplication_application, convert_xor)
+def cas(op, s):
+    try:
+        x = symbols('x')
+        loc = {'x': x}
+        if '=' in s:
+            l, r = s.split('=', 1)
+            e = parse_expr(l, local_dict=loc, transformations=TR) - parse_expr(r, local_dict=loc, transformations=TR)
+        else:
+            e = parse_expr(s, local_dict=loc, transformations=TR)
+        r = {'diff': lambda: diff(e, x), 'int': lambda: integrate(e, x),
+             'solve': lambda: solve(e, x), 'simp': lambda: simplify(e)}[op]()
+        return json.dumps({"ok": True, "inp": latex(e), "out": latex(r)})
+    except Exception as ex:
+        return json.dumps({"ok": False, "msg": str(ex)})
+x, y = symbols('x y', real=True)
+def P(s): return parse_expr(s, local_dict={'x': x, 'y': y}, transformations=TR)
+def g(fn, X, Y): return np.broadcast_to(np.asarray(fn(X, Y), float), np.shape(X)).copy()
+def fin(v): return float(v) if np.isfinite(v) else None
+
+T_ = symbols('t', real=True)
+def P2(s): return parse_expr(s, local_dict={'x': x, 'y': y, 't': T_}, transformations=TR)
+def evl(fn, a): return np.broadcast_to(np.asarray(fn(a), float), np.shape(a)).copy()
+
+KC = 9e9
+MU = 4e-7*np.pi
+z = symbols('z', real=True)
+def P3(s): return parse_expr(s, local_dict={'x': x, 'y': y, 'z': z}, transformations=TR)
+def g3(fn, a, b, c): return np.broadcast_to(np.asarray(fn(a, b, c), float), np.shape(a)).copy()
+
+def prev(s):
+    try:
+        e = parse_expr(s, local_dict={'x': x, 'y': y, 'z': z, 't': T_}, transformations=TR)
+        return json.dumps({"ok": True, "tex": latex(e)})
+    except Exception:
+        return json.dumps({"ok": False})
+
+
+def _sci():
+    from scipy.integrate import solve_ivp
+    return solve_ivp`,
+kin: String.raw`RHS = {0: lambda c: -k, 1: lambda c: -k*c, 2: lambda c: -k*c**2}
 SOL = {0: C0-k*t, 1: C0*exp(-k*t), 2: C0/(1+C0*k*t)}
 HL = {0: C0/(2*k), 1: log(2)/k, 2: 1/(k*C0)}
 F = {0: lambda t,k,c: c-k*t, 1: lambda t,k,c: c*np.exp(-k*t), 2: lambda t,k,c: c/(1+c*k*t)}
@@ -363,6 +399,8 @@ def curve(n, kv, c0, tmax):
     return json.dumps({"t": tt.tolist(), "c": cc.tolist(), "half": num(th)})
 
 def fit(js):
+    from scipy.optimize import curve_fit
+    from scipy.stats import t as tdist
     d = json.loads(js)
     x = np.array(d["t"], float); y = np.array(d["c"], float)
     N = len(x); out = {}
@@ -385,37 +423,8 @@ def fit(js):
         except Exception as e:
             out[n] = {"ok": False, "msg": str(e)}
     return json.dumps(out)
-
-TR = standard_transformations + (implicit_multiplication_application, convert_xor)
-def cas(op, s):
-    try:
-        x = symbols('x')
-        loc = {'x': x}
-        if '=' in s:
-            l, r = s.split('=', 1)
-            e = parse_expr(l, local_dict=loc, transformations=TR) - parse_expr(r, local_dict=loc, transformations=TR)
-        else:
-            e = parse_expr(s, local_dict=loc, transformations=TR)
-        r = {'diff': lambda: diff(e, x), 'int': lambda: integrate(e, x),
-             'solve': lambda: solve(e, x), 'simp': lambda: simplify(e)}[op]()
-        return json.dumps({"ok": True, "inp": latex(e), "out": latex(r)})
-    except Exception as ex:
-        return json.dumps({"ok": False, "msg": str(ex)})
-import json, numpy as np
-from sympy import symbols, diff, latex, simplify, lambdify, Matrix, sqrt, acos, N, pi
-from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application, convert_xor
-_raw_parse = parse_expr
-_NT = str.maketrans({'×':'*','·':'*','⋅':'*','∙':'*','÷':'/','−':'-','–':'-','٫':'.','،':',','٬':'', **{c:str(i) for i,c in enumerate('۰۱۲۳۴۵۶۷۸۹')}, **{c:str(i) for i,c in enumerate('٠١٢٣٤٥٦٧٨٩')}})
-def parse_expr(s, *a, **k): return _raw_parse(s.translate(_NT) if isinstance(s, str) else s, *a, **k)
-from scipy.integrate import solve_ivp
-
-x, y = symbols('x y', real=True)
-TR = standard_transformations + (implicit_multiplication_application, convert_xor)
-def P(s): return parse_expr(s, local_dict={'x': x, 'y': y}, transformations=TR)
-def g(fn, X, Y): return np.broadcast_to(np.asarray(fn(X, Y), float), np.shape(X)).copy()
-def fin(v): return float(v) if np.isfinite(v) else None
-
-def scalar(js):
+`,
+fld: String.raw`def scalar(js):
     try:
         d = json.loads(js); f = P(d['f']); x0, y0, R = d['x0'], d['y0'], d['R']
         th = np.radians(d['th']); ds = d['ds']
@@ -448,7 +457,7 @@ def field(js):
         q = [[float(a), float(b), float(c), float(e)] for a, b, c, e in zip(QX.ravel(), QY.ravel(), AX.ravel(), AY.ravel())
              if np.isfinite(c) and np.isfinite(e) and abs(c) < 1e6 and abs(e) < 1e6]
         fun = lambda t, p: [float(g(VX, p[0], p[1])), float(g(VY, p[0], p[1]))]
-        s = solve_ivp(fun, [0, T], [x0, y0], t_eval=np.linspace(0, T, 300), rtol=1e-8, atol=1e-10)
+        s = _sci()(fun, [0, T], [x0, y0], t_eval=np.linspace(0, T, 300), rtol=1e-8, atol=1e-10)
         tr = [[float(a), float(b)] for a, b in zip(s.y[0], s.y[1]) if np.isfinite(a) and np.isfinite(b) and abs(a) < 10*R and abs(b) < 10*R]
         return json.dumps({"ok": True, "div": latex(dvs), "curl": latex(cvs), "parts": [latex(diff(vx, x)), latex(diff(vy, y)), latex(diff(vy, x)), latex(diff(vx, y))], "dv": fin(g(DV, x0, y0)), "cv": fin(g(CV, x0, y0)),
             "divzero": bool(dvs == 0), "curlzero": bool(cvs == 0), "q": q, "tr": tr})
@@ -474,12 +483,8 @@ def lin(js):
     except Exception as e:
         return json.dumps({"ok": False, "msg": str(e)})
 
-
-T_ = symbols('t', real=True)
-def P2(s): return parse_expr(s, local_dict={'x': x, 'y': y, 't': T_}, transformations=TR)
-def evl(fn, a): return np.broadcast_to(np.asarray(fn(a), float), np.shape(a)).copy()
-
-def chain(js):
+`,
+chn: String.raw`def chain(js):
     try:
         d = json.loads(js); f = P2(d['f']); xt = P2(d['x']); yt = P2(d['y']); t0, t1 = d['t0'], d['t1']
         fx, fy = diff(f, x), diff(f, y); sb = {x: xt, y: yt}
@@ -492,9 +497,8 @@ def chain(js):
             "Dmid": float(evl(D, mid)), "num": float((evl(C, mid+h) - evl(C, mid-h))/(2*h))})
     except Exception as e:
         return json.dumps({"ok": False, "msg": str(e)})
-
-KC = 9e9
-def EV(Q, X, Y):
+`,
+elc: String.raw`def EV(Q, X, Y):
     V = 0; Ex = 0; Ey = 0
     for q, a, b in Q:
         dx, dy = X - a, Y - b; r = np.maximum(np.hypot(dx, dy), 1e-9)
@@ -515,9 +519,8 @@ def elec(js):
             "E": E, "ang": float(np.degrees(np.arctan2(ey, ex)) % 360), "F": abs(q0)*1e-6*E, "err": err})
     except Exception as e:
         return json.dumps({"ok": False, "msg": str(e)})
-
-MU = 4e-7*np.pi
-def Bf(W, X, Y):
+`,
+mag: String.raw`def Bf(W, X, Y):
     Bx = 0; By = 0
     for I, a, b in W:
         dx, dy = X - a, Y - b; k = MU*I/(2*np.pi*np.maximum(dx**2 + dy**2, 1e-12)); Bx = Bx - k*dy; By = By + k*dx
@@ -542,17 +545,13 @@ def part(js):
         d = json.loads(js); q, m, v, B = d['q'], d['m'], d['v'], d['B']
         w = abs(q)*B/m; Tp = 2*np.pi/w; r = m*v/(abs(q)*B)
         f = lambda t, s: [s[2], s[3], (q/m)*s[3]*B, -(q/m)*s[2]*B]
-        s = solve_ivp(f, [0, 2*Tp], [0, 0, v, 0], t_eval=np.linspace(0, 2*Tp, 400), rtol=1e-10, atol=1e-9)
+        s = _sci()(f, [0, 2*Tp], [0, 0, v, 0], t_eval=np.linspace(0, 2*Tp, 400), rtol=1e-10, atol=1e-9)
         return json.dumps({"ok": True, "x": s.y[0].tolist(), "y": s.y[1].tolist(), "r": float(r), "T": float(Tp),
             "rn": float((s.y[1].max() - s.y[1].min())/2)})
     except Exception as e:
         return json.dumps({"ok": False, "msg": str(e)})
-
-z = symbols('z', real=True)
-def P3(s): return parse_expr(s, local_dict={'x': x, 'y': y, 'z': z}, transformations=TR)
-def g3(fn, a, b, c): return np.broadcast_to(np.asarray(fn(a, b, c), float), np.shape(a)).copy()
-
-def scalar3(js):
+`,
+s3d: String.raw`def scalar3(js):
     try:
         d = json.loads(js); f = P3(d['f']); p = d['p']; u = np.array(d['u'], float); R = d['R']
         if np.linalg.norm(u) < 1e-12: raise ValueError('بردار جهت نباید صفر باشد')
@@ -581,7 +580,7 @@ def field3(js):
         qs = np.linspace(-R*0.8, R*0.8, 5); X, Y, Z = np.meshgrid(qs, qs, qs, indexing='ij'); W = [g3(fn, X, Y, Z) for fn in Fv]
         ok = np.all([np.isfinite(w) & (np.abs(w) < 1e6) for w in W], axis=0)
         fun = lambda t, s: [float(g3(fn, s[0], s[1], s[2])) for fn in Fv]
-        s = solve_ivp(fun, [0, T], p, t_eval=np.linspace(0, T, 300), rtol=1e-8, atol=1e-10)
+        s = _sci()(fun, [0, T], p, t_eval=np.linspace(0, T, 300), rtol=1e-8, atol=1e-10)
         tr = [[float(a), float(b), float(c)] for a, b, c in zip(s.y[0], s.y[1], s.y[2]) if np.isfinite([a, b, c]).all() and max(abs(a), abs(b), abs(c)) < 10*R]
         return json.dumps({"ok": True, "J": [[latex(e) for e in r] for r in J], "div": latex(dv), "curl": [latex(e) for e in cu],
             "dv": val(dv), "cv": [val(e) for e in cu], "divzero": bool(dv == 0), "curlzero": all(e == 0 for e in cu),
@@ -608,15 +607,14 @@ def part3(js):
         Bm = float(np.linalg.norm(Bv)); bh = Bv/Bm; Tp = 2*np.pi*m/(abs(q)*Bm)
         vpar = float(v@bh); vperp = float(np.linalg.norm(v - vpar*bh)); r = m*vperp/(abs(q)*Bm)
         f = lambda t, s: list(s[3:]) + list((q/m)*np.cross(s[3:], Bv))
-        s = solve_ivp(f, [0, 2*Tp], [0, 0, 0, *v], t_eval=np.linspace(0, 2*Tp, 500), rtol=1e-10, atol=1e-9)
+        s = _sci()(f, [0, 2*Tp], [0, 0, 0, *v], t_eval=np.linspace(0, 2*Tp, 500), rtol=1e-10, atol=1e-9)
         sp = np.linalg.norm(s.y[3:], axis=0)
         return json.dumps({"ok": True, "p": s.y[:3].tolist(), "r": float(r), "T": float(Tp), "vpar": vpar, "vperp": vperp,
             "pitch": abs(vpar)*float(Tp), "dv": float(abs(sp[-1] - sp[0])/sp[0])})
     except Exception as e:
         return json.dumps({"ok": False, "msg": str(e)})
-
-from sympy import Add, Poly, factor
-def cas2(js):
+`,
+cas: String.raw`def cas2(js):
     try:
         d = json.loads(js); op, s = d['op'], d['s']
         if '=' in s: l, r = s.split('=', 1); e = P(l) - P(r)
@@ -642,16 +640,8 @@ def cas2(js):
         return json.dumps({"ok": True, "inp": T(e), "steps": st, "out": out})
     except Exception as ex:
         return json.dumps({"ok": False, "msg": str(ex)})
-
-def prev(s):
-    try:
-        e = parse_expr(s, local_dict={'x': x, 'y': y, 'z': z, 't': T_}, transformations=TR)
-        return json.dumps({"ok": True, "tex": latex(e)})
-    except Exception:
-        return json.dumps({"ok": False})
-
-
-def _d2(P, V):
+`,
+hea: String.raw`def _d2(P, V):
     return 2*sum(V[i]/np.prod([P[i]-P[j] for j in range(3) if j != i]) for i in range(3))
 
 def heat(js):
@@ -675,8 +665,8 @@ def heat(js):
             "gx": (TE - TW)/(2*hx), "gy": (TN - TS)/(2*hy), "T": T, "hx": hx, "hy": hy})
     except Exception as e:
         return json.dumps({"ok": False, "msg": str(e)})
-
-def multi(js):
+`,
+mul: String.raw`def multi(js):
     try:
         from sympy import Integral, sqrt, integrate, diff, latex, lambdify
         from scipy.integrate import dblquad, tplquad
@@ -789,8 +779,8 @@ def lineint(js):
             out[nm] = [fin(v) for v in np.broadcast_to(np.asarray(lambdify(T_, q, 'numpy')(ts), float), ts.shape)]
         return json.dumps(out)
     except Exception as err_:
-        return json.dumps({"ok": False, "msg": str(err_)})
-`;
+        return json.dumps({"ok": False, "msg": str(err_)})`
+};
 (function(){
 
 const $ = id => document.getElementById(id);
@@ -887,7 +877,7 @@ function runCas(op) {
 ['k', 'c0', 'tm'].forEach(i => $(i).oninput = () => py && sliders());
 $('model').onchange = () => py && (steps(), sliders());
 $('play').onclick = () => py && play();
-$('fit').onclick = () => py && doFit();
+$('fit').onclick = async () => { if (!py) return; try { await window.needSci(); } catch (e) { $('fitout').innerHTML = '<p class="err">بارگذاری scipy ناموفق بود (حافظه‌ی گوشی؟). تب‌های دیگر را ببندید و دوباره امتحان کنید.</p>'; return; } doFit(); };
 $('sample').onclick = () => { $('data').value = '0, 1.00\n2, 0.75\n4, 0.54\n6, 0.42\n8, 0.29\n10, 0.23\n12, 0.16\n14, 0.13\n16, 0.09\n18, 0.06\n20, 0.05'; };
 document.querySelectorAll('[data-op]').forEach(b => b.onclick = () => py && runCas(b.dataset.op));
 $('kv').textContent = fa(0.15); $('c0v').textContent = fa(1); $('tmv').textContent = fa(20);
@@ -1231,4 +1221,8 @@ const DEF={
  surf:{f:'1',g:'x+y',a:'0',b:'1',c:'0',d:'1'},
  flux:{F1:'x',F2:'y',F3:'z',g:'2-x-y',a:'0',b:'1',c:'0',d:'1'}};
 function miKind(fill){const k=$('mi_k').value;
- document.querySelectorAll('#mi [data-k]').forEa
+ document.querySelectorAll('#mi [data-k]').forEach(e=>e.style.display=e.dataset.k.split(' ').includes(k)?'':'none');
+ if(fill){const D=DEF[k];['f','F1','F2','F3','g','a','b','c','d','e','h'].forEach(n=>{const el=$('mi_'+n);if(el&&D[n]!=null)el.value=D[n]});}
+ $('mi_plot').style.display=k=='vol'?'none':'';}
+$('mi_k').onchange=()=>{miKind(true);runMi()};
+const LAT={dbl:'\\iint_R f\\,dA',vol:'\\iiint_V f\\,dV',surf:'\\iint_S f\\,dS=\\iint_R f(x,y,g)\\sqrt{1+g_x^2+g_y^2}\\,dA',flux:'\\iint_S \\vec F\\cdot\\hat n\\,dS=\\
